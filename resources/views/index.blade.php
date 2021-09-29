@@ -171,7 +171,12 @@
             </tr>
             @foreach( $summaries as $summary )
                 <tr
-                    class = "clickable"
+                    class = "
+                        clickable
+                        {{-- TODO replace ID to value --}}
+                        {{ $summary->status_id === 3 ? "summaries_success" : "" }}
+                        {{ $summary->status_id === 2 ? "summaries_failed" : "" }}
+                    "
                     onclick = "window.open( '/summaries/{{ $summary->id }}' )"
                 >
                     <td>{{ $summary->order }}</td>
