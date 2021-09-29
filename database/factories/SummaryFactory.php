@@ -36,7 +36,7 @@ class SummaryFactory extends Factory
             'status_id' => mt_rand(1,4),
             'skills' => $this->faker->text(2000),
             'description' => $this->faker->text(8000),
-            'experience' => $this->faker->text(1000)
+            'experience' => $this->faker->text(10000)
         ];
     }
 }
