@@ -17,8 +17,6 @@ class CreateSummariesTable extends Migration
             $table->id();
             $table->integer('order');
             $table->string('name', 256);
-            $table->string('middle_name', 256);
-            $table->string('surname', 256);
             $table->string('email', 256);
             //$table->integer('position_id')->nullable();
             //$table->integer('level_id');

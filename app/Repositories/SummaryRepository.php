@@ -21,8 +21,8 @@ class SummaryRepository
         $builder->join( "summary_statuses", "summaries.status_id", "=", "summary_statuses.id" );
 
         $builder->select( [
-            "summaries.id", "order", "summaries.name", "surname",
-            "middle_name", "email", "position_id",
+            "summaries.id", "order", "summaries.name",
+            "email", "position_id",
             "level_id", "date", "status_id",
             "positions.name as position_name",
             "levels.name as level_name",
@@ -32,11 +32,7 @@ class SummaryRepository
         if( isset( $filters[ "name" ] ) ){
             $name = implode( "|", $filters[ "name" ] );
 
-            $builder->where( function( $query ) use ( $name ){
-                $query->orWhere( "summaries.name", "regexp", $name );
-                $query->orWhere( "surname", "regexp", $name );
-                $query->orWhere( "middle_name", "regexp", $name );
-            } );
+            $builder->where( "summaries.name", "regexp", $name );
         }
 
         if( isset( $filters[ "email" ] ) ){
@@ -98,7 +94,7 @@ class SummaryRepository
             ->leftJoin('summary_statuses', 'summary_statuses.id', '=', 'summaries.status_id')
             ->leftJoin('positions', 'positions.id', '=', 'summaries.position_id')
             ->select(
-                DB::raw("CONCAT(summaries.name, ' ', summaries.surname, ' ', summaries.middle_name) AS Full_name"),
+                "summaries.name as Full_name",
                 "summaries.date as Date",
                 "summaries.email as E-mail",
                 "summary_statuses.name as Status",

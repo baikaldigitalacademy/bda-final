@@ -175,7 +175,7 @@
                     onclick = "window.open( '/summaries/{{ $summary->id }}' )"
                 >
                     <td>{{ $summary->order }}</td>
-                    <td>{{ $summary->name }} {{ $summary->surname }} {{ $summary->middle_name }}</td>
+                    <td>{{ $summary->name }}</td>
                     <td>{{ $summary->email }}</td>
                     <td>{{ $summary->position_name }}</td>
                     <td>{{ $summary->level_name ?? "N/A" }}</td>
