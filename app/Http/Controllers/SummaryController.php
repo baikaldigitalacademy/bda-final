@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
-//use Illuminate\Http\Response;
-use App\Http\Requests\SummaryGetAllRequest;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
+use App\Http\Requests\SummaryGetAllRequest;
+use App\Models\Summary;
 use App\Repositories\SummaryRepository;
 use App\Repositories\PositionRepository;
 use App\Repositories\LevelRepository;
 use App\Repositories\SummaryStatusRepository;
-use Illuminate\Http\Request;
 
 class SummaryController extends Controller {
     /**
@@ -59,5 +59,19 @@ class SummaryController extends Controller {
 
     public function view(Request $request, SummaryRepository $summaryRepository){
         return view('view', $summaryRepository->getForView($request));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Summary $summary
+     *
+     * @return RedirectResponse
+     */
+    public function destroy( Summary $summary ): RedirectResponse
+    {
+        $summary->delete();
+
+        return redirect( "/" );
     }
 }
