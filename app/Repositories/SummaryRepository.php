@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\Summary;
+use Illuminate\Support\Facades\DB;
 
 class SummaryRepository
 {
@@ -89,5 +90,29 @@ class SummaryRepository
         return $builder
             ->orderByRaw( "$orderColumn $orderDirection" )
             ->get();
+    }
+
+    public function getForView($request){
+        $data = (DB::table('summaries')
+            ->leftJoin('levels', 'levels.id', '=', 'summaries.level_id')
+            ->leftJoin('summary_statuses', 'summary_statuses.id', '=', 'summaries.status_id')
+            ->leftJoin('positions', 'positions.id', '=', 'summaries.position_id')
+            ->select(
+                DB::raw("CONCAT(summaries.name, ' ', summaries.surname, ' ', summaries.middle_name) AS Full_name"),
+                "summaries.date as Date",
+                "summaries.email as E-mail",
+                "summary_statuses.name as Status",
+                "levels.name as Level",
+                "positions.name as Position",
+                "summaries.skills as Skills",
+                "summaries.description as Description",
+                "summaries.experience as Experience",
+            )
+            ->where('summaries.id', '=', $request->id)
+            ->get())[0];
+        return [
+            'data' => $data,
+            'id' => $request->id
+        ];
     }
 }

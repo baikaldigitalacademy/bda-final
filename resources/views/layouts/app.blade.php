@@ -22,7 +22,7 @@
 <body>
 <div class = "container">
     <div class = "container__block0">
-        <h1>Some header</h1>
+        @include('layouts.header')
         @if( $errors->any() )
             @foreach( $errors->all() as $error )
                 <div>{{ $error }}</div>

@@ -10,6 +10,7 @@ use App\Repositories\SummaryRepository;
 use App\Repositories\PositionRepository;
 use App\Repositories\LevelRepository;
 use App\Repositories\SummaryStatusRepository;
+use Illuminate\Http\Request;
 
 class SummaryController extends Controller {
     /**
@@ -54,5 +55,9 @@ class SummaryController extends Controller {
                 "statuses" => $statuses
             ]
         );
+    }
+
+    public function view(Request $request, SummaryRepository $summaryRepository){
+        return view('view', $summaryRepository->getForView($request));
     }
 }
