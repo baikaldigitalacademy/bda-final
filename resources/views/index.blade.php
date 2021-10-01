@@ -43,7 +43,7 @@
 
 @extends( "layouts.app", [
   "icons" => true,
-  "title" => "Dashboard"
+  "title" => "Главная"
 ] )
 
 @push( "styles" )
@@ -177,7 +177,7 @@
                         {{ $summary->status_id === 3 ? "summaries_success" : "" }}
                         {{ $summary->status_id === 2 ? "summaries_failed" : "" }}
                     "
-                    onclick = "window.open( '/summaries/{{ $summary->id }}' )"
+                    onclick = "window.open( '{{ route( "summaries_one", [ "id" => $summary->id ] ) }}' )"
                 >
                     <td>{{ $summary->order }}</td>
                     <td>{{ $summary->name }}</td>

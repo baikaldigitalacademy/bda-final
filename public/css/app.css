@@ -21,12 +21,14 @@ body{
 
 @media( max-width: 760px ){
     .container__block0{
+        width: 100%;
         max-width: 100%;
     }
 }
 
 @media( min-width: 761px ){
     .container__block0{
+        width: 60%;
         max-width: 60%;
     }
 }
