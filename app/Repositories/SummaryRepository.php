@@ -96,7 +96,7 @@ class SummaryRepository
             ->select(
                 "summaries.name as Full_name",
                 "summaries.date as Date",
-                "summaries.email as E-mail",
+                "summaries.email as Email",
                 "summary_statuses.name as Status",
                 "levels.name as Level",
                 "positions.name as Position",

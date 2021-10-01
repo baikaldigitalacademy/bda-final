@@ -74,4 +74,28 @@ class SummaryController extends Controller {
 
         return redirect( "/" );
     }
+
+    public function edit(Request $request,
+                         SummaryRepository $summaryRepository,
+                         PositionRepository $positionRepository,
+                         LevelRepository $levelRepository,
+                         SummaryStatusRepository $summaryStatusRepository)
+    {
+        $summaryData = $summaryRepository->getForView($request);
+        $positions = $positionRepository->getAll();
+        $levels = $levelRepository->getAll();
+        $statuses = $summaryStatusRepository->getAll();
+        return view('edit', array_merge(
+            $summaryData,
+            [
+                "positions" => $positions,
+                "levels" => $levels,
+                "statuses" => $statuses,
+                "isNew" => False
+            ]
+        ));
+    }
+    public function update(Request $request){
+        dd($request);
+    }
 }

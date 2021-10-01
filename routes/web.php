@@ -5,7 +5,15 @@ use App\Http\Controllers\SummaryController;
 
 // Views
 Route::get( "/",[ SummaryController::class, "index" ]  );
-Route::get( "summaries/{id}",[ SummaryController::class, "view" ]  );
+
+Route::prefix('/summaries')->group(function(){
+    Route::get( "/edit",[ SummaryController::class, "create" ]  )->name('createNewCV');
+    Route::prefix('/{id}')->group(function(){
+        Route::get( "/edit", [ SummaryController::class, "edit" ] );
+        Route::put( "/update", [ SummaryController::class, "update" ] )->name("summaryUpdate");
+        Route::get( "/",[ SummaryController::class, "view" ]  );
+    });
+});
 
 // Actions
 Route::delete( "/summaries/{summary}", [ SummaryController::class, "destroy" ] );
