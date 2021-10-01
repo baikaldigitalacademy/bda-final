@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Requests\SummaryGetAllRequest;
+use App\Http\Requests\SummaryUpdateRequest;
 use App\Models\Summary;
 use App\Repositories\SummaryRepository;
 use App\Repositories\PositionRepository;
@@ -95,7 +96,12 @@ class SummaryController extends Controller {
             ]
         ));
     }
-    public function update(Request $request){
-        dd($request);
+
+    // TODO remove id, add model
+    public function update( SummaryUpdateRequest $request, SummaryRepository $summaryRepository, int $id )
+    {
+        $summaryRepository->edit( $id, $request->all() );
+
+        return redirect( route( "summaries_edit", [ "id" => $id ] ) );
     }
 }

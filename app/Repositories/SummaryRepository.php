@@ -107,4 +107,15 @@ class SummaryRepository
             'id' => $request->id
         ];
     }
+
+    /**
+     * @param int $id
+     * @param array $fields
+     */
+    public function edit( int $id, array $fields ){
+        $summary = Summary::find( $id );
+
+        $summary->fill( $fields );
+        $summary->save();
+    }
 }

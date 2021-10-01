@@ -9,24 +9,18 @@
 @endpush
 
 @push("scripts")
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
-        const options = {
-            debug: "info",
-            modules: {
-                toolbar: [ "bold", "italic", "underline" ]
-            },
-            theme: "snow",
-        };
-
-        const editor1 = new Quill( document.getElementById( "editor1" ), options );
-        const editor2 = new Quill( document.getElementById( "editor2" ), options );
-        const editor3 = new Quill( document.getElementById( "editor3" ), options );
+        const EMAIL_POSTFIX = "{{ env( "EMAIL_POSTFIX" ) }}";
     </script>
+
+    <script src = "https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src = "{{ asset( "js/transliteration.js" ) }}"></script>
+    <script src = "{{ asset( "js/generateEmail.js" ) }}"></script>
+    <script src = "{{ asset( "js/edit.js" ) }}"></script>
 @endpush
 
 @section("content")
-    <form method="post" action="{{route('summaryUpdate', ['id'=>$id])}}">
+    <form id = "editForm" method="post" action="{{route('summaryUpdate', ['id'=>$id])}}">
         @csrf
         @method("put")
         <a href="." class="button">Cancel</a>
@@ -35,8 +29,9 @@
             <legend>CV information</legend>
             <fieldset>
                 <legend>Full name</legend>
-                <input size=100%
-                    name="Full_name"
+                <input size="100%"
+                    name="name"
+                    id = "name"
                     value="{{$data->Full_name}}"
                 >
             </fieldset>
@@ -50,15 +45,16 @@
             </fieldset>
             <fieldset>
                 <legend>E-mail</legend>
-                <input size=100%
+                <input size="100%"
                     type="email"
+                    id = "email"
                     name="email"
                     value="{{$data->Email}}"
                 >
             </fieldset>
             <fieldset>
                 <legend>Status</legend>
-                <select name="Status">
+                <select name="status_id">
                     @foreach($statuses as $it)
                         <option value = {{$it->id}}
                         @if($it->name == $data->Status)
@@ -73,7 +69,13 @@
             </fieldset>
             <fieldset>
                 <legend>Level</legend>
-                <select name="Level">
+                <select name="level_id">
+                    <option
+                        value = ""
+                        {{ !$data->Level ? "selected" : "" }}
+                    >
+                        Без уровня
+                    </option>
                     @foreach($levels as $it)
                         <option value = {{$it->id}}
                         @if($it->name == $data->Level)
@@ -88,7 +90,7 @@
             </fieldset>
             <fieldset>
                 <legend>Position</legend>
-                <select name="Position">
+                <select name="position_id">
                     @foreach($positions as $it)
                         <option value = {{$it->id}}
                         @if($it->name == $data->Position)
@@ -103,22 +105,25 @@
             </fieldset>
             <fieldset>
                 <legend>Skills</legend>
-                <div id="editor1">
-                    {{$data->Skills}}
+                <div id = "skillsEditorDiv">
+                    {!! $data->Skills !!}
                 </div>
             </fieldset>
             <fieldset>
                 <legend>Description</legend>
-                <div id="editor2">
-                    {{$data->Description}}
+                <div id = "descriptionEditorDiv">
+                    {!! $data->Description !!}
                 </div>
             </fieldset>
             <fieldset>
                 <legend>Experience</legend>
-                <div id="editor3">
-                    {{$data->Experience}}
+                <div id = "experienceEditorDiv">
+                    {!! $data->Experience !!}
                 </div>
             </fieldset>
         </fieldset>
+        <input id = "skills" name = "skills" type = "text" hidden>
+        <input id = "description" name = "description" type = "text" hidden>
+        <input id = "experience" name = "experience" type = "text" hidden>
     </form>
 @endsection

@@ -13,7 +13,7 @@ Route::get( "/", [ SummaryController::class, "index" ] )->name( "dashboard" );
 Route::prefix('/summaries')->group(function(){
     Route::get( "/edit",[ SummaryController::class, "create" ]  )->name('createNewCV');
     Route::prefix('/{id}')->group(function(){
-        Route::get( "/edit", [ SummaryController::class, "edit" ] );
+        Route::get( "/edit", [ SummaryController::class, "edit" ] )->name( "summaries_edit" );
         Route::put( "/update", [ SummaryController::class, "update" ] )->name("summaryUpdate");
         Route::get( "/",[ SummaryController::class, "view" ]  )->name( "summaries_one" );
     });

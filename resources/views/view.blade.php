@@ -5,15 +5,21 @@
 
 
 @section("content")
-    <a href="/summaries/{{$id}}/edit" class="button">Edit</a>
-    <a href="/summaries/{{$id}}/pdf" class="button">Download pdf</a>
+    <a href = "{{ route( "summaries_edit", [ "id" => $id ] ) }}" class = "button">Изменить</a>
+    {{-- TODO change to route --}}
+    <a href = "{{ url( "/summaries/$id/pdf" ) }}" class = "button">Скачать PDF</a>
     <fieldset>
         <legend>CV information</legend>
+        {{-- TODO remove cycle --}}
         @foreach($data as $it => $val)
             <fieldset>
                 <legend>{{$it}}</legend>
                 @if(isset($val))
-                    {{$val}}
+                    @if( !in_array( $it, [ "Skills", "Description", "Experience" ] ) )
+                        {{$val}}
+                    @else
+                        {!! $val !!}
+                    @endif
                 @else
                     N/A
                 @endif
