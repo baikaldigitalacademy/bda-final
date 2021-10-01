@@ -9,7 +9,15 @@ use App\Http\Controllers\SummaryStatusController;
 
 // Views
 Route::get( "/", [ SummaryController::class, "index" ] )->name( "dashboard" );
-Route::get( "summaries/{id}",[ SummaryController::class, "view" ]  )->name( "summaries_one" );
+
+Route::prefix('/summaries')->group(function(){
+    Route::get( "/edit",[ SummaryController::class, "create" ]  )->name('createNewCV');
+    Route::prefix('/{id}')->group(function(){
+        Route::get( "/edit", [ SummaryController::class, "edit" ] );
+        Route::put( "/update", [ SummaryController::class, "update" ] )->name("summaryUpdate");
+        Route::get( "/",[ SummaryController::class, "view" ]  )->name( "summaries_one" );
+    });
+});
 
 Route::get( "/admin", [ AdminController::class, "index" ] )->name( "admin" );
 
