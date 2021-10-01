@@ -21,7 +21,7 @@ class SummaryRepository
         $builder->join( "summary_statuses", "summaries.status_id", "=", "summary_statuses.id" );
 
         $builder->select( [
-            "summaries.id", "order", "summaries.name",
+            "summaries.id", "summaries.name",
             "email", "position_id",
             "level_id", "date", "status_id",
             "positions.name as position_name",
@@ -66,11 +66,7 @@ class SummaryRepository
         if( isset( $filters[ "order_column" ] ) ){
             $orderColumn = "{$filters[ "order_column" ]}";
         } else {
-            $orderColumn = "order";
-        }
-
-        if( $orderColumn === "order" ){
-            $orderColumn = "`$orderColumn`";
+            $orderColumn = "id";
         }
 
         if( isset( $filters[ "order_direction" ] ) ){

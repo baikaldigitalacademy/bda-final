@@ -7,7 +7,7 @@
     $dateStart = $query[ "date_start" ] ?? "";
     $dateEnd = $query[ "date_end" ] ?? "";
     $statusId = $query[ "status_id" ] ?? null;
-    $orderColumn = $query[ "order_column" ] ?? "order";
+    $orderColumn = $query[ "order_column" ] ?? "id";
     $orderDirection = $query[ "order_direction" ] ?? "asc";
 
     $headerColumn = function( $name, $order ) use( $orderColumn, $orderDirection ){
@@ -161,7 +161,7 @@
         </h3>
         <table>
             <tr>
-                {{ $headerColumn( "№", "order" ) }}
+                {{ $headerColumn( "ID", "id" ) }}
                 {{ $headerColumn( "Имя", "name" ) }}
                 {{ $headerColumn( "E-Mail", "email" ) }}
                 {{ $headerColumn( "Позиция", "positions" ) }}
@@ -179,7 +179,7 @@
                     "
                     onclick = "window.open( '{{ route( "summaries_one", [ "id" => $summary->id ] ) }}' )"
                 >
-                    <td>{{ $summary->order }}</td>
+                    <td>{{ $summary->id }}</td>
                     <td>{{ $summary->name }}</td>
                     <td>{{ $summary->email }}</td>
                     <td>{{ $summary->position_name }}</td>
