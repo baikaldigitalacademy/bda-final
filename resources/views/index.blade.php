@@ -177,7 +177,7 @@
                         {{ $summary->status_id === 3 ? "summaries_success" : "" }}
                         {{ $summary->status_id === 2 ? "summaries_failed" : "" }}
                     "
-                    onclick = "window.open( '{{ route( "summaries_one", [ "id" => $summary->id ] ) }}' )"
+                    onclick = "window.open( '{{ route( "summaries_one", [ "id" => $summary->id ] ) }}', '_self' )"
                 >
                     <td>{{ $summary->id }}</td>
                     <td>{{ $summary->name }}</td>
