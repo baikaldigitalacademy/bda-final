@@ -26,7 +26,8 @@ class SummaryRepository
             "level_id", "date", "status_id",
             "positions.name as position_name",
             "levels.name as level_name",
-            "summary_statuses.name as status_name"
+            "summary_statuses.name as status_name",
+            "summary_statuses.color as status_color"
         ] );
 
         if( isset( $filters[ "name" ] ) ){

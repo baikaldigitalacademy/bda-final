@@ -170,22 +170,19 @@
                 {{ $headerColumn( "Решение", "summary_statuses" ) }}
             </tr>
             @foreach( $summaries as $summary )
+                @php( $style = $summary->status_color ? "background-color: $summary->status_color" : "" )
+
                 <tr
-                    class = "
-                        clickable
-                        {{-- TODO replace ID to value --}}
-                        {{ $summary->status_id === 3 ? "summaries_success" : "" }}
-                        {{ $summary->status_id === 2 ? "summaries_failed" : "" }}
-                    "
+                    class = "clickable"
                     onclick = "window.open( '{{ route( "summaries_one", [ "id" => $summary->id ] ) }}', '_self' )"
                 >
-                    <td>{{ $summary->id }}</td>
-                    <td>{{ $summary->name }}</td>
-                    <td>{{ $summary->email }}</td>
-                    <td>{{ $summary->position_name }}</td>
-                    <td>{{ $summary->level_name ?? "N/A" }}</td>
-                    <td>{{ $summary->date }}</td>
-                    <td>{{ $summary->status_name }}</td>
+                    <td style = "{{ $style }}">{{ $summary->id }}</td>
+                    <td style = "{{ $style }}">{{ $summary->name }}</td>
+                    <td style = "{{ $style }}">{{ $summary->email }}</td>
+                    <td style = "{{ $style }}">{{ $summary->position_name }}</td>
+                    <td style = "{{ $style }}">{{ $summary->level_name ?? "N/A" }}</td>
+                    <td style = "{{ $style }}">{{ $summary->date }}</td>
+                    <td style = "{{ $style }}">{{ $summary->status_name }}</td>
                 </tr>
             @endforeach
         </table>
