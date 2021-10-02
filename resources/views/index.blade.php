@@ -157,7 +157,7 @@
         </form>
         <h3>
             Резюме ({{ $summaries->count() }})
-            <a href = "{{ url( "/edit" ) }}">Добавить резюме</a>
+            <a href = "{{ route("createNewCV") }}">Добавить резюме</a>
         </h3>
         <table>
             <tr>

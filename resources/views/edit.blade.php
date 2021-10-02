@@ -1,6 +1,6 @@
 @extends( "layouts.app", [
   "icons" => true,
-  "title" => $data->Full_name
+  "title" => $data->name
 ] )
 
 @push( "styles" )
@@ -22,25 +22,28 @@
 @section("content")
     <form id = "editForm" method="post" action="{{route('summaryUpdate', ['id'=>$id])}}">
         @csrf
-        @method("put")
+        @if(!$isNew)
+            @method("put")
+        @endif
+
         <a href="." class="button">Cancel</a>
         <input type="submit" value="Save">
         <fieldset>
             <legend>CV information</legend>
             <fieldset>
-                <legend>Full name</legend>
+                <legend>Полное имя</legend>
                 <input size="100%"
                     name="name"
                     id = "name"
-                    value="{{$data->Full_name}}"
+                    value="{{$data->name}}"
                 >
             </fieldset>
             <fieldset>
-                <legend>Date</legend>
+                <legend>Дата собеседования</legend>
                 <input
                     type="date"
                     name="date"
-                    value="{{$data->Date}}"
+                    value="{{$data->date}}"
                 >
             </fieldset>
             <fieldset>
@@ -49,15 +52,15 @@
                     type="email"
                     id = "email"
                     name="email"
-                    value="{{$data->Email}}"
+                    value="{{$data->email}}"
                 >
             </fieldset>
             <fieldset>
-                <legend>Status</legend>
+                <legend>Статус</legend>
                 <select name="status_id">
                     @foreach($statuses as $it)
                         <option value = {{$it->id}}
-                        @if($it->name == $data->Status)
+                        @if($it->name == $data->status)
                              selected>
                         @else
                             >
@@ -68,17 +71,17 @@
                 </select>
             </fieldset>
             <fieldset>
-                <legend>Level</legend>
+                <legend>Уровень</legend>
                 <select name="level_id">
                     <option
                         value = ""
-                        {{ !$data->Level ? "selected" : "" }}
+                        {{ !$data->level ? "selected" : "" }}
                     >
                         Без уровня
                     </option>
                     @foreach($levels as $it)
                         <option value = {{$it->id}}
-                        @if($it->name == $data->Level)
+                        @if($it->name == $data->level)
                             selected>
                             @else
                                 >
@@ -89,11 +92,11 @@
                 </select>
             </fieldset>
             <fieldset>
-                <legend>Position</legend>
+                <legend>Позиция</legend>
                 <select name="position_id">
                     @foreach($positions as $it)
                         <option value = {{$it->id}}
-                        @if($it->name == $data->Position)
+                        @if($it->name == $data->position)
                             selected>
                             @else
                                 >
@@ -104,21 +107,21 @@
                 </select>
             </fieldset>
             <fieldset>
-                <legend>Skills</legend>
+                <legend>Навыки</legend>
                 <div id = "skillsEditorDiv">
-                    {!! $data->Skills !!}
+                    {!! $data->skills !!}
                 </div>
             </fieldset>
             <fieldset>
-                <legend>Description</legend>
+                <legend>Описание</legend>
                 <div id = "descriptionEditorDiv">
-                    {!! $data->Description !!}
+                    {!! $data->description !!}
                 </div>
             </fieldset>
             <fieldset>
-                <legend>Experience</legend>
+                <legend>Опыт</legend>
                 <div id = "experienceEditorDiv">
-                    {!! $data->Experience !!}
+                    {!! $data->experience !!}
                 </div>
             </fieldset>
         </fieldset>

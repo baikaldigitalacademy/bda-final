@@ -97,11 +97,49 @@ class SummaryController extends Controller {
         ));
     }
 
+    public function create(
+        PositionRepository $positionRepository,
+        LevelRepository $levelRepository,
+        SummaryStatusRepository $summaryStatusRepository,
+        )
+    {
+        return view('edit',
+            [
+                "id" => -1,
+                "data" => (object) array (
+                    "name" => "",
+                    "date" => "",
+                    "email" => "",
+                    "status" => "",
+                    "level" => "",
+                    "position" => "",
+                    "skills" => "",
+                    "description" => "",
+                    "experience" => ""
+                ),
+                "positions" => $positionRepository->getAll(),
+                "levels" => $levelRepository->getAll(),
+                "statuses" => $summaryStatusRepository->getAll(),
+                "isNew" => True
+            ]);
+    }
+
     // TODO remove id, add model
     public function update( SummaryUpdateRequest $request, SummaryRepository $summaryRepository, int $id )
     {
         $summaryRepository->edit( $id, $request->all() );
 
-        return redirect( route( "summaries_edit", [ "id" => $id ] ) );
+        return redirect( route( "summaries_one", [ "id" => $id ] ) );
+    }
+
+    public function store(SummaryUpdateRequest $request, SummaryRepository $summaryRepository){
+        $id = $summaryRepository->store($request->all());
+
+        return redirect( route( "summaries_one", [ "id" => $id ] ) );
+    }
+
+    public function pdf(Request $request, int $id){
+        //...
+        return redirect( route( "summaries_one", [ "id" => $id ] ) );
     }
 }
