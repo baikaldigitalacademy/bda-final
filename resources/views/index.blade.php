@@ -164,13 +164,13 @@
                 {{ $headerColumn( "ID", "id" ) }}
                 {{ $headerColumn( "Имя", "name" ) }}
                 {{ $headerColumn( "E-Mail", "email" ) }}
-                {{ $headerColumn( "Позиция", "positions" ) }}
-                {{ $headerColumn( "Уровень", "levels" ) }}
+                {{ $headerColumn( "Позиция", "position_id" ) }}
+                {{ $headerColumn( "Уровень", "level_id" ) }}
                 {{ $headerColumn( "Дата", "date" ) }}
-                {{ $headerColumn( "Решение", "summary_statuses" ) }}
+                {{ $headerColumn( "Решение", "status_id" ) }}
             </tr>
             @foreach( $summaries as $summary )
-                @php( $style = $summary->status_color ? "background-color: $summary->status_color" : "" )
+                @php( $style = $summary->status->color ? "background-color: {$summary->status->color}" : "" )
 
                 <tr
                     class = "clickable"
@@ -179,10 +179,10 @@
                     <td style = "{{ $style }}">{{ $summary->id }}</td>
                     <td style = "{{ $style }}">{{ $summary->name }}</td>
                     <td style = "{{ $style }}">{{ $summary->email }}</td>
-                    <td style = "{{ $style }}">{{ $summary->position_name }}</td>
-                    <td style = "{{ $style }}">{{ $summary->level_name ?? "N/A" }}</td>
+                    <td style = "{{ $style }}">{{ $summary->position->name }}</td>
+                    <td style = "{{ $style }}">{{ $summary->level->name ?? "N/A" }}</td>
                     <td style = "{{ $style }}">{{ $summary->date }}</td>
-                    <td style = "{{ $style }}">{{ $summary->status_name }}</td>
+                    <td style = "{{ $style }}">{{ $summary->status->name }}</td>
                 </tr>
             @endforeach
         </table>

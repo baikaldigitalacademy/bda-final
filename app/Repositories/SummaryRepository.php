@@ -16,24 +16,10 @@ class SummaryRepository
     public function getForDashboard( array $filters = [] ): Collection{
         $builder = Summary::query();
 
-        $builder->join( "positions", "summaries.position_id", "=", "positions.id" );
-        $builder->join( "levels", "summaries.level_id", "=", "levels.id", "left" );
-        $builder->join( "summary_statuses", "summaries.status_id", "=", "summary_statuses.id" );
-
-        $builder->select( [
-            "summaries.id", "summaries.name",
-            "email", "position_id",
-            "level_id", "date", "status_id",
-            "positions.name as position_name",
-            "levels.name as level_name",
-            "summary_statuses.name as status_name",
-            "summary_statuses.color as status_color"
-        ] );
-
         if( isset( $filters[ "name" ] ) ){
             $name = implode( "|", $filters[ "name" ] );
 
-            $builder->where( "summaries.name", "regexp", $name );
+            $builder->where( "name", "regexp", $name );
         }
 
         if( isset( $filters[ "email" ] ) ){
@@ -64,25 +50,16 @@ class SummaryRepository
             $builder->where( "status_id", "=", $filters[ "status_id" ] );
         }
 
-        if( isset( $filters[ "order_column" ] ) ){
-            $orderColumn = "{$filters[ "order_column" ]}";
-        } else {
-            $orderColumn = "id";
-        }
-
-        if( isset( $filters[ "order_direction" ] ) ){
-            $orderDirection = $filters[ "order_direction" ];
-        } else {
-            $orderDirection = "asc";
-        }
-
-        if( in_array( $orderColumn, [ "positions", "levels", "summary_statuses" ] ) ){
-            $orderColumn = "$orderColumn.name";
-        }
+        $orderColumn = $filters[ "order_column" ] ?? "id";
+        $orderDirection = $filters[ "order_direction" ] ?? "asc";
 
         return $builder
-            ->orderByRaw( "$orderColumn $orderDirection" )
-            ->get();
+            ->with( [ "position:id,name", "level:id,name", "status:id,name,color" ] )
+            ->orderBy( $orderColumn, $orderDirection )
+            ->get( [
+                "id", "name",  "email", "position_id",
+                "level_id", "date", "status_id"
+            ] );
     }
 
     public function getForView($request){
