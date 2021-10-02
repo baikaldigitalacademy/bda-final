@@ -91,15 +91,15 @@ class SummaryRepository
             ->leftJoin('summary_statuses', 'summary_statuses.id', '=', 'summaries.status_id')
             ->leftJoin('positions', 'positions.id', '=', 'summaries.position_id')
             ->select(
-                "summaries.name as Full_name",
-                "summaries.date as Date",
-                "summaries.email as Email",
-                "summary_statuses.name as Status",
-                "levels.name as Level",
-                "positions.name as Position",
-                "summaries.skills as Skills",
-                "summaries.description as Description",
-                "summaries.experience as Experience",
+                "summaries.name as name",
+                "summaries.date as date",
+                "summaries.email as email",
+                "summary_statuses.name as status",
+                "levels.name as level",
+                "positions.name as position",
+                "summaries.skills as skills",
+                "summaries.description as description",
+                "summaries.experience as experience",
             )
             ->where('summaries.id', '=', $request->id)
             ->get())[0];
@@ -118,5 +118,13 @@ class SummaryRepository
 
         $summary->fill( $fields );
         $summary->save();
+    }
+
+    public function store( array $fields ){
+        $summary = new Summary();
+
+        $summary->fill( $fields );
+        $summary->save();
+        return $summary->id;
     }
 }

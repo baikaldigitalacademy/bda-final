@@ -11,11 +11,19 @@ use App\Http\Controllers\SummaryStatusController;
 Route::get( "/", [ SummaryController::class, "index" ] )->name( "dashboard" );
 
 Route::prefix('/summaries')->group(function(){
-    Route::get( "/edit",[ SummaryController::class, "create" ]  )->name('createNewCV');
+    Route::get( "/create",[ SummaryController::class, "create" ]  )->name('createNewCV');
     Route::prefix('/{id}')->group(function(){
+        //views
         Route::get( "/edit", [ SummaryController::class, "edit" ] )->name( "summaries_edit" );
-        Route::put( "/update", [ SummaryController::class, "update" ] )->name("summaryUpdate");
+        Route::get("/pdf", [ SummaryController::class, "pdf"])->name("pdf");
         Route::get( "/",[ SummaryController::class, "view" ]  )->name( "summaries_one" );
+        //actions
+        Route::put( "/update", [ SummaryController::class, "update" ] )->name("summaryUpdate");
+        Route::post( "/update", [ SummaryController::class, "store" ] )->name("summaryUpdate");
+    });
+
+    Route::get("/", function (){
+        return redirect(route("dashboard"));
     });
 });
 
