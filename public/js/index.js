@@ -57,7 +57,7 @@ function headerElementOnClickFactory( orderColumn, orderDirection ){
     return () => {
         const urlSearchParams = new URLSearchParams( window.location.search );
 
-        if( orderColumn !== "order" ){
+        if( orderColumn !== "id" ){
             urlSearchParams.set( "order_column", orderColumn );
         } else {
             urlSearchParams.delete( "order_column" );
