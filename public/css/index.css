@@ -6,11 +6,3 @@
 .summaries__header-icon_selected{
     color: #0f0;
 }
-
-.summaries_success > td{
-    background-color: rgb( 211, 231, 205 );
-}
-
-.summaries_failed > td{
-    background-color: rgb( 245, 196, 197 );
-}

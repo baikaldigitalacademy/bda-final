@@ -73,7 +73,7 @@ class SummaryController extends Controller {
     {
         $summary->delete();
 
-        return redirect( "/" );
+        return redirect( route( "dashboard" ) );
     }
 
     public function edit(Request $request,

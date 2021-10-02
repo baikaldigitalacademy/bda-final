@@ -16,6 +16,7 @@ class CreateSummaryStatusesTable extends Migration
         Schema::create('summary_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name', 256);
+            $table->string( "color", 30 )->nullable();
             $table->timestamps();
         });
     }
