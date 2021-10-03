@@ -5,8 +5,8 @@
 
 
 @section("content")
-    <a href = "{{ route( "summaries_edit", [ "id" => $id ] ) }}" class = "button">Изменить</a>
-    <a href = "{{ route( "pdf", [ "id" => $id ] ) }}" class = "button">Скачать PDF</a>
+    <a href = "{{ route( "summaries_edit", [ "id" => $data->id ] ) }}" class = "button">Изменить</a>
+    <a href = "{{ route( "pdf", [ "id" => $data->id ] ) }}" class = "button">Скачать PDF</a>
     <fieldset>
         <legend>CV information</legend>
         <fieldset>

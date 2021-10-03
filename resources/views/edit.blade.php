@@ -20,7 +20,7 @@
 @endpush
 
 @section("content")
-    <form id = "editForm" method="post" action="{{route('summaryUpdate', ['id'=>$id])}}">
+    <form id = "editForm" method="post" action="{{route('summaryUpdate', ['id'=>$data->id])}}">
         @csrf
         @if(!$isNew)
             @method("put")

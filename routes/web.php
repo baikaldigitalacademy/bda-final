@@ -29,11 +29,31 @@ Route::prefix('/summaries')->group(function(){
 
 Route::get( "/admin", [ AdminController::class, "index" ] )->name( "admin" );
 
-Route::get( "/positions", [ PositionController::class, "index" ] )->name( "positions_all" );
 
-Route::get( "/levels", [ LevelController::class, "index" ] )->name( "levels_all" );
+Route::prefix("/positions")->group(function(){
+    Route::get( "/", [ PositionController::class, "index" ] )->name( "positions_all" );
+    Route::post( "/", [ PositionController::class, "create" ] )->name( "new_position" );
+    Route::delete(  "/{position}", [ PositionController::class, "delete" ] )->name( "delete_position" );
+    Route::put(  "/{position}", [ PositionController::class, "update" ] )->name( "update_position" );
+});
 
-Route::get( "/summary_statuses", [ SummaryStatusController::class, "index" ] )->name( "summary_statuses_all" );
+Route::prefix("/levels")->group(function(){
+    Route::get( "/", [ LevelController::class, "index" ] )->name( "levels_all" );
+    Route::post( "/", [ LevelController::class, "create" ] )->name( "new_level" );
+    Route::delete(  "/{level}", [ LevelController::class, "delete" ] )->name( "delete_level" );
+    Route::put(  "/{level}", [ LevelController::class, "update" ] )->name( "update_level" );
+});
+
+Route::prefix("/summary_statuses")->group(function(){
+    Route::get( "/", [ SummaryStatusController::class, "index" ] )->name( "summary_statuses_all" );
+    Route::post( "/", [ SummaryStatusController::class, "create" ] )->name( "new_summary_status" );
+    Route::delete(  "/{summary_status}", [ SummaryStatusController::class, "delete" ] )->name( "delete_summary_status" );
+    Route::put(  "/{summary_status}", [ SummaryStatusController::class, "update" ] )->name( "update_summary_status" );
+});
+
+//Route::get( "/levels", [ LevelController::class, "index" ] )->name( "levels_all" );
+
+//Route::get( "/summary_statuses", [ SummaryStatusController::class, "index" ] )->name( "summary_statuses_all" );
 
 // Actions
 Route::delete( "/summaries/{summary}", [ SummaryController::class, "destroy" ] )->name( "summaries_destroy" );
