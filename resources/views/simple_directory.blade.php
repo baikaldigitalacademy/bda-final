@@ -13,11 +13,9 @@
 
 @section( "content" )
     <h3>Справочник «{{ $directoryName }}»</h3>
-    <form id = "newItemForm" action = "{{ $baseUrl }}" method = "post">
-        Новое значение:
-        <input name = "name" type = "text">
-        <input type = "submit" value = "Добавить">
-    </form>
+    Новое значение:
+    <input id = "newNameInput" type = "text">
+    <button id = "addNewNameButton">Добавить</button>
     <div id = "data">
         @foreach( $data as $row )
             <div>

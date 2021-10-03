@@ -28,16 +28,22 @@ async function deleteItem( id ){
 }
 
 function index(){
-    const newItemForm = document.getElementById( "newItemForm" );
+    const addNewNameButton = document.getElementById( "addNewNameButton" );
 
-    newItemForm.addEventListener( "submit", e => {
-        e.preventDefault();
+    addNewNameButton.addEventListener( "click", async () => {
+        const csrf = document.getElementById( "csrf-token" ).getAttribute( "content" );
+        const newName = document.getElementById( "newNameInput" ).value;
 
-        const formData = new FormData( e.target );
+        const response = await fetch( BASE_URL, {
+            method: "post",
+            headers: {
+                "content-type": "application/json",
+                "x-csrf-token": csrf
+            },
+            body: JSON.stringify( { name: newName } )
+        } );
 
-        for( const [ key, value ] of formData.entries() ){
-            console.log( key, value );
-        }
+        // TODO обработка ответа
     } );
 }
 
