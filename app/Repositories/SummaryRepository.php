@@ -68,6 +68,7 @@ class SummaryRepository
             ->leftJoin('summary_statuses', 'summary_statuses.id', '=', 'summaries.status_id')
             ->leftJoin('positions', 'positions.id', '=', 'summaries.position_id')
             ->select(
+                "summaries.id as id",
                 "summaries.name as name",
                 "summaries.date as date",
                 "summaries.email as email",
@@ -82,7 +83,6 @@ class SummaryRepository
             ->get())[0];
         return [
             'data' => $data,
-            'id' => $request->id
         ];
     }
 

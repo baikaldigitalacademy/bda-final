@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 //use Illuminate\Http\Request;
+use App\Http\Requests\AdminLevelDeleteRequest;
+use App\Http\Requests\AdminLevelRequest;
+use App\Models\Level;
 use Illuminate\Contracts\View\View;
 use App\Repositories\LevelRepository;
 
@@ -24,5 +27,24 @@ class LevelController extends Controller
             "directoryName" => "Уровни",
             "baseUrl" => url( "/levels" )
         ] );
+    }
+
+    public function create( AdminLevelRequest $request ){
+        $level = new Level();
+        $level->fill(["name" => $request->get("name")])
+            ->save();
+        return response("Created", 200);
+    }
+
+    public function update( AdminLevelRequest $request, Level $level){
+        $level
+            ->fill(["name" => $request->get("name")])
+            ->save();
+        return response("Updated", 200);
+    }
+
+    public function delete( AdminLevelDeleteRequest $request, Level $level ){
+        $level->delete();
+        return response("Deleted", 200);
     }
 }

@@ -6,4 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class SummaryStatus extends Model
 {
+    protected $fillable = ['name'];
 }

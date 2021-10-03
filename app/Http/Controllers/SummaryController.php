@@ -105,8 +105,8 @@ class SummaryController extends Controller {
     {
         return view('edit',
             [
-                "id" => -1,
                 "data" => (object) array (
+                    "id" => -1,
                     "name" => "",
                     "date" => "",
                     "email" => "",
