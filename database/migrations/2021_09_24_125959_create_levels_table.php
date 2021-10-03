@@ -15,7 +15,7 @@ class CreateLevelsTable extends Migration
     {
         Schema::create('levels', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 256);
+            $table->string('name', 256)->unique();
             $table->timestamps();
         });
     }
