@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\SummaryStatusController;
+use App\Http\Controllers\PdfTestController;
 
 // Views
 Route::get( "/", [ SummaryController::class, "index" ] )->name( "dashboard" );
@@ -57,3 +58,5 @@ Route::prefix("/summary_statuses")->group(function(){
 
 // Actions
 Route::delete( "/summaries/{summary}", [ SummaryController::class, "destroy" ] )->name( "summaries_destroy" );
+
+Route::get( "/pdf-test", [ PdfTestController::class, "index" ] );
