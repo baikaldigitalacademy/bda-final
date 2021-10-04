@@ -24,7 +24,7 @@ class AdminPositionRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "string|min:1"
+            "name" => "unique:positions|string|min:1"
         ];
     }
 }

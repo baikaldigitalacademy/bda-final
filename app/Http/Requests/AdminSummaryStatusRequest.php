@@ -24,7 +24,7 @@ class AdminSummaryStatusRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "string|min:1"
+            "name" => "unique:summary_statuses|string|min:1"
         ];
     }
 }

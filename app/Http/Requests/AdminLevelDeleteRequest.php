@@ -24,7 +24,7 @@ class AdminLevelDeleteRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "exists:positions,name|string|min:1"
+            "name" => "exists:levels,name|string|min:1"
         ];
     }
 }

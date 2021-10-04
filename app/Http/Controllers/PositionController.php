@@ -33,18 +33,15 @@ class PositionController extends Controller
         $position = new Position();
         $position->fill(["name" => $request->get("name")])
             ->save();
-        return response("Created", 200);
     }
 
     public function update( AdminPositionRequest $request, Position $position){
         $position
             ->fill(["name" => $request->get("name")])
             ->save();
-        return response("Updated", 200);
     }
 
     public function delete( AdminPositionDeleteRequest $request, Position $position ){
         $position->delete();
-        return response("Deleted", 200);
     }
 }

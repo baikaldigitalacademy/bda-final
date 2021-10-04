@@ -33,18 +33,15 @@ class SummaryStatusController extends Controller
         $summaryStatus = new SummaryStatus();
         $summaryStatus->fill(["name" => $request->get("name")])
             ->save();
-        return response("Created", 200);
     }
 
     public function update( AdminSummaryStatusRequest $request, SummaryStatus $summaryStatus){
         $summaryStatus
             ->fill(["name" => $request->get("name")])
             ->save();
-        return response("Updated", 200);
     }
 
     public function delete( AdminSummaryStatusDeleteRequest $request, SummaryStatus $summaryStatus ){
         $summaryStatus->delete();
-        return response("Deleted", 200);
     }
 }

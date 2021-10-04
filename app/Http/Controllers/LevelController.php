@@ -33,18 +33,15 @@ class LevelController extends Controller
         $level = new Level();
         $level->fill(["name" => $request->get("name")])
             ->save();
-        return response("Created", 200);
     }
 
     public function update( AdminLevelRequest $request, Level $level){
         $level
             ->fill(["name" => $request->get("name")])
             ->save();
-        return response("Updated", 200);
     }
 
     public function delete( AdminLevelDeleteRequest $request, Level $level ){
         $level->delete();
-        return response("Deleted", 200);
     }
 }

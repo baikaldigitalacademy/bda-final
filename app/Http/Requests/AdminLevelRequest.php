@@ -24,7 +24,7 @@ class AdminLevelRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "string|min:1"
+            "name" => "unique:levels|string|min:1"
         ];
     }
 }
