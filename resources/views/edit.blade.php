@@ -1,6 +1,6 @@
 @extends( "layouts.app", [
   "icons" => true,
-  "title" => $data->name
+  "title" => $title
 ] )
 
 @push( "styles" )

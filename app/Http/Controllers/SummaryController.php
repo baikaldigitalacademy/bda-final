@@ -89,6 +89,7 @@ class SummaryController extends Controller {
         return view('edit', array_merge(
             $summaryData,
             [
+                "title" => "Редактирование резюме",
                 "positions" => $positions,
                 "levels" => $levels,
                 "statuses" => $statuses,
@@ -105,6 +106,7 @@ class SummaryController extends Controller {
     {
         return view('edit',
             [
+                "title" => "Новое резюме",
                 "data" => (object) array (
                     "id" => -1,
                     "name" => "",
@@ -139,7 +141,7 @@ class SummaryController extends Controller {
     }
 
     public function pdf(Request $request, int $id){
-        //...
+        //TODO: pdf
         return redirect( route( "summaries_one", [ "id" => $id ] ) );
     }
 }
