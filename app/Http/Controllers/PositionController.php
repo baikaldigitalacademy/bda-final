@@ -7,6 +7,7 @@ use App\Http\Requests\AdminPositionRequest;
 use App\Models\Position;
 use Illuminate\Contracts\View\View;
 use App\Repositories\PositionRepository;
+use Illuminate\Database\QueryException;
 
 class PositionController extends Controller
 {
@@ -43,6 +44,10 @@ class PositionController extends Controller
     }
 
     public function delete( AdminPositionDeleteRequest $request, Position $position ){
-        $position->delete();
+        try{
+            $position->delete();
+        }catch (QueryException $e){
+            return response('I cannot delete a dependent field.', 400);
+        }
     }
 }
