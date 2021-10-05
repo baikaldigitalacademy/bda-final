@@ -7,9 +7,9 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\SummaryStatusController;
 
-// Views
 Route::get( "/", [ SummaryController::class, "index" ] )->name( "dashboard" );
 
+// Summaries
 Route::prefix('/summaries')->group(function(){
     Route::get( "/create",[ SummaryController::class, "create" ]  )->name('createNewCV');
     Route::prefix('/{id}')->group(function(){
@@ -27,9 +27,10 @@ Route::prefix('/summaries')->group(function(){
     });
 });
 
+// Admin
 Route::get( "/admin", [ AdminController::class, "index" ] )->name( "admin" );
 
-
+// Positions
 Route::prefix("/positions")->group(function(){
     Route::get( "/", [ PositionController::class, "index" ] )->name( "positions_all" );
     Route::post( "/", [ PositionController::class, "create" ] )->name( "new_position" );
@@ -37,6 +38,7 @@ Route::prefix("/positions")->group(function(){
     Route::put(  "/{position}", [ PositionController::class, "update" ] )->name( "update_position" );
 });
 
+// Levels
 Route::prefix("/levels")->group(function(){
     Route::get( "/", [ LevelController::class, "index" ] )->name( "levels_all" );
     Route::post( "/", [ LevelController::class, "create" ] )->name( "new_level" );
@@ -44,6 +46,7 @@ Route::prefix("/levels")->group(function(){
     Route::put(  "/{level}", [ LevelController::class, "update" ] )->name( "update_level" );
 });
 
+// Summary statuses
 Route::prefix("/summary_statuses")->group(function(){
     Route::get( "/", [ SummaryStatusController::class, "index" ] )->name( "summary_statuses_all" );
     Route::post( "/", [ SummaryStatusController::class, "create" ] )->name( "new_summary_status" );
@@ -51,9 +54,4 @@ Route::prefix("/summary_statuses")->group(function(){
     Route::put(  "/{summary_status}", [ SummaryStatusController::class, "update" ] )->name( "update_summary_status" );
 });
 
-//Route::get( "/levels", [ LevelController::class, "index" ] )->name( "levels_all" );
-
-//Route::get( "/summary_statuses", [ SummaryStatusController::class, "index" ] )->name( "summary_statuses_all" );
-
-// Actions
 Route::delete( "/summaries/{summary}", [ SummaryController::class, "destroy" ] )->name( "summaries_destroy" );

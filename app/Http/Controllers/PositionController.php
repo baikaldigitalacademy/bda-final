@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
 use App\Http\Requests\AdminPositionDeleteRequest;
 use App\Http\Requests\AdminPositionRequest;
 use App\Models\Position;
@@ -22,7 +21,7 @@ class PositionController extends Controller
     {
         $positions = $positionRepository->getAll();
 
-        return view( "simple_directory", [
+        return view( "directories.simple", [
             "data" => $positions,
             "directoryName" => "Позиции",
             "baseUrl" => url( "/positions" )
@@ -33,6 +32,8 @@ class PositionController extends Controller
         $position = new Position();
         $position->fill(["name" => $request->get("name")])
             ->save();
+
+        return $position->id;
     }
 
     public function update( AdminPositionRequest $request, Position $position){

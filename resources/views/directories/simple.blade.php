@@ -5,20 +5,23 @@
 
 @push( "scripts" )
     <script>
+        const CSRF_TOKEN = "{{ csrf_token() }}";
         const BASE_URL = "{{ $baseUrl }}";
+        let totalCount = {{ $data->count() }};
     </script>
 
     <script src = "{{ asset( "js/simple_directory.js" ) }}"></script>
 @endpush
 
 @section( "content" )
+    <div id = "errorsDiv"></div>
     <h3>Справочник «{{ $directoryName }}»</h3>
     Новое значение:
     <input id = "newNameInput" type = "text">
-    <button id = "addNewNameButton">Добавить</button>
+    <button onclick = "createName()">Добавить</button>
     <div id = "data">
         @foreach( $data as $row )
-            <div>
+            <div id = "name{{ $row->id }}">
                 {{ $loop->index + 1 }}.
                 <input id = "name{{ $row->id }}Input" type = "text" value = "{{ $row->name }}">
                 <button onclick = "updateName( {{ $row->id }} )">Сохранить</button>

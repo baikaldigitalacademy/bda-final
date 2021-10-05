@@ -1,50 +1,121 @@
+function clearErrors( node ){
+    ( node || document.getElementById( "errorsDiv" ) ).innerHTML = "";
+}
+
+function showErrors( errors ){
+    const errorsDiv = document.getElementById( "errorsDiv" );
+
+    clearErrors( errorsDiv );
+
+    for( const error of errors ){
+        const div = document.createElement( "div" );
+
+        div.innerHTML = error;
+        errorsDiv.appendChild( div );
+    }
+}
+
+async function createName(){
+    const nameInput = document.getElementById( "newNameInput" );
+    const name = nameInput.value;
+
+    const response = await fetch( BASE_URL, {
+        method: "post",
+        headers: {
+            "content-type": "application/json",
+            "accept": "application/json",
+            "x-csrf-token": CSRF_TOKEN
+        },
+        body: JSON.stringify( { name } )
+    } );
+
+    const { status, statusText } = response;
+    const json = await response.json();
+
+    if( status !== 200 ){
+        if( status === 422 ){
+            showErrors( json.errors.name );
+        } else {
+            alert( `[ERROR] ${status} ${statusText}` );
+        }
+
+        return;
+    }
+
+    const div = document.createElement( "div" );
+
+    div.setAttribute( "id", `name${json}` );
+
+    div.innerHTML =
+        `${++totalCount}.
+        <input id = "name${json}Input" type = "text" value = "${name}">
+        <button onclick = "updateName( ${json} )">Сохранить</button>
+        <button onclick = "deleteItem( ${json} )">Удалить</button>`;
+
+    document.getElementById( "data" ).appendChild( div );
+    nameInput.value = "";
+    nameInput.focus();
+}
+
 async function updateName( id ){
-    const csrf = document.getElementById( "csrf-token" ).getAttribute( "content" );
-    const name = document.getElementById( `name${id}Input` ).value;
+    const nameInput = document.getElementById( `name${id}Input` );
+    const name = nameInput.value;
+
+    clearErrors();
 
     const response = await fetch( `${BASE_URL}/${id}`, {
         method: "put",
         headers: {
             "content-type": "application/json",
-            "x-csrf-token": csrf
+            "accept": "application/json",
+            "x-csrf-token": CSRF_TOKEN
         },
         body: JSON.stringify( { name } )
     } );
 
-    // TODO обработка ответа
+    const { status, statusText } = response;
+
+    if( status !== 200 ){
+        if( status === 422 ){
+            const json = await response.json();
+
+            showErrors( json.errors.name );
+        } else {
+            alert( `[ERROR] ${status} ${statusText}` );
+        }
+
+        return;
+    }
+
+    nameInput.focus();
+
+    // TODO на что-то почеловечнее
+    alert( "Успешно" );
 }
 
 async function deleteItem( id ){
-    const csrf = document.getElementById( "csrf-token" ).getAttribute( "content" );
-
     const response = await fetch( `${BASE_URL}/${id}`, {
         method: "delete",
         headers: {
-            "x-csrf-token": csrf
+            "accept": "application/json",
+            "x-csrf-token": CSRF_TOKEN
         }
     } );
 
-    // TODO обработка ответа
+    const { status, statusText } = response;
+
+    if( status !== 200 ){
+        if( status === 422 ){
+            const json = await response.json();
+
+            showErrors( json.errors.name );
+        } else {
+            alert( `[ERROR] ${status} ${statusText}` );
+        }
+
+        return;
+    }
+
+    totalCount--;
+    document.getElementById( "data" ).removeChild( document.getElementById( `name${id}` ) );
 }
-
-function index(){
-    const addNewNameButton = document.getElementById( "addNewNameButton" );
-
-    addNewNameButton.addEventListener( "click", async () => {
-        const csrf = document.getElementById( "csrf-token" ).getAttribute( "content" );
-        const newName = document.getElementById( "newNameInput" ).value;
-
-        const response = await fetch( BASE_URL, {
-            method: "post",
-            headers: {
-                "content-type": "application/json",
-                "x-csrf-token": csrf
-            },
-            body: JSON.stringify( { name: newName } )
-        } );
-
-        // TODO обработка ответа
-    } );
-}
-
-window.addEventListener( "load", index );

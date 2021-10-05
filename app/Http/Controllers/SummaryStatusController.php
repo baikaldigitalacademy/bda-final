@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
 use App\Http\Requests\AdminSummaryStatusDeleteRequest;
 use App\Http\Requests\AdminSummaryStatusRequest;
 use App\Models\SummaryStatus;
@@ -22,7 +21,7 @@ class SummaryStatusController extends Controller
     {
         $summaryStatuses = $summaryStatusRepository->getAll();
 
-        return view( "simple_directory", [
+        return view( "directories.simple", [
             "data" => $summaryStatuses,
             "directoryName" => "Статусы (решения)",
             "baseUrl" => url( "/summary_statuses" )
@@ -33,6 +32,8 @@ class SummaryStatusController extends Controller
         $summaryStatus = new SummaryStatus();
         $summaryStatus->fill(["name" => $request->get("name")])
             ->save();
+
+        return $summaryStatus->id;
     }
 
     public function update( AdminSummaryStatusRequest $request, SummaryStatus $summaryStatus){

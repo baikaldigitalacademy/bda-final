@@ -23,8 +23,14 @@ class AdminLevelRequest extends FormRequest
      */
     public function rules()
     {
+        $unique = "unique:levels,name";
+
+        if( $this->level ){
+            $unique .= ",{$this->level->id}";
+        }
+
         return [
-            "name" => "unique:levels|string|min:1"
+            "name" => "$unique|string|min:1"
         ];
     }
 }

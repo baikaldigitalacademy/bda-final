@@ -23,8 +23,14 @@ class AdminPositionRequest extends FormRequest
      */
     public function rules()
     {
+        $unique = "unique:positions,name";
+
+        if( $this->position ){
+            $unique .= ",{$this->position->id}";
+        }
+
         return [
-            "name" => "unique:positions|string|min:1"
+            "name" => "$unique|string|min:1"
         ];
     }
 }
