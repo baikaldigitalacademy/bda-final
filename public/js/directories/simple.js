@@ -2,7 +2,7 @@ function clearErrors( node ){
     ( node || document.getElementById( "errorsDiv" ) ).innerHTML = "";
 }
 
-function showErrors( errorBug ){
+function showErrorsByFields( errorBug ){
     const errorsDiv = document.getElementById( "errorsDiv" );
 
     for( const [ field, errors ] of Object.entries( errorBug ) ){
@@ -20,6 +20,17 @@ function showErrors( errorBug ){
         }
 
         errorsDiv.appendChild( fieldset );
+    }
+}
+
+function showUnnamedErrors( errors ){
+    const errorsDiv = document.getElementById( "errorsDiv" );
+
+    for( const error of errors ){
+        const div = document.createElement( "div" );
+
+        div.innerHTML = error;
+        errorsDiv.appendChild( div );
     }
 }
 
@@ -51,7 +62,7 @@ async function create( successCallback ){
 
     if( status !== 200 ){
         if( status === 422 ){
-            showErrors( json.errors );
+            showErrorsByFields( json.errors );
         } else {
             alert( `[ERROR] ${status} ${statusText}` );
         }
@@ -95,7 +106,7 @@ async function update( id ){
         if( status === 422 ){
             const json = await response.json();
 
-            showErrors( json.errors );
+            showErrorsByFields( json.errors );
         } else {
             alert( `[ERROR] ${status} ${statusText}` );
         }
@@ -124,7 +135,11 @@ async function destroy( id ){
         if( status === 422 ){
             const json = await response.json();
 
-            showErrors( json.errors );
+            showErrorsByFields( json.errors );
+        }
+        else if( status === 400 ){
+            const error = await response.text();
+            showUnnamedErrors( [ error ] );
         } else {
             alert( `[ERROR] ${status} ${statusText}` );
         }
