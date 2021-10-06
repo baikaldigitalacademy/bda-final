@@ -2,22 +2,39 @@ function clearErrors( node ){
     ( node || document.getElementById( "errorsDiv" ) ).innerHTML = "";
 }
 
-function showErrors( errors ){
+function showErrors( errorBug ){
     const errorsDiv = document.getElementById( "errorsDiv" );
 
-    clearErrors( errorsDiv );
+    for( const [ field, errors ] of Object.entries( errorBug ) ){
+        const fieldset = document.createElement( "fieldset" );
+        const legend = document.createElement( "legend" );
 
-    for( const error of errors ){
-        const div = document.createElement( "div" );
+        legend.innerHTML = field;
+        fieldset.appendChild( legend );
 
-        div.innerHTML = error;
-        errorsDiv.appendChild( div );
+        for( const error of errors ){
+            const div = document.createElement( "div" );
+
+            div.innerHTML = error;
+            fieldset.appendChild( div );
+        }
+
+        errorsDiv.appendChild( fieldset );
     }
 }
 
-async function createName(){
-    const nameInput = document.getElementById( "newNameInput" );
-    const name = nameInput.value;
+async function create( successCallback ){
+    clearErrors();
+
+    const body = Array
+        .from( document.querySelectorAll( "[data-create]" ) )
+        .reduce( ( res, node ) => {
+            if( !Boolean( node.getAttribute( "data-not-include" ) ) ){
+                res[ node.getAttribute( "data-create" ) ] = node.value;
+            }
+
+            return res;
+        }, {} );
 
     const response = await fetch( BASE_URL, {
         method: "post",
@@ -26,7 +43,7 @@ async function createName(){
             "accept": "application/json",
             "x-csrf-token": CSRF_TOKEN
         },
-        body: JSON.stringify( { name } )
+        body: JSON.stringify( body )
     } );
 
     const { status, statusText } = response;
@@ -34,7 +51,7 @@ async function createName(){
 
     if( status !== 200 ){
         if( status === 422 ){
-            showErrors( json.errors.name );
+            showErrors( json.errors );
         } else {
             alert( `[ERROR] ${status} ${statusText}` );
         }
@@ -42,26 +59,25 @@ async function createName(){
         return;
     }
 
-    const div = document.createElement( "div" );
-
-    div.setAttribute( "id", `name${json}` );
-
-    div.innerHTML =
-        `${++totalCount}.
-        <input id = "name${json}Input" type = "text" value = "${name}">
-        <button onclick = "updateName( ${json} )">Сохранить</button>
-        <button onclick = "deleteItem( ${json} )">Удалить</button>`;
-
-    document.getElementById( "data" ).appendChild( div );
-    nameInput.value = "";
-    nameInput.focus();
+    successCallback && successCallback( { id: json, ...body } );
 }
 
-async function updateName( id ){
-    const nameInput = document.getElementById( `name${id}Input` );
-    const name = nameInput.value;
-
+async function update( id ){
     clearErrors();
+
+    const body = JSON.stringify( Array
+        .from( document.querySelectorAll( `[data-edit${id}]` ) )
+        .reduce( ( res, node ) => {
+            const key = node.getAttribute( `data-edit${id}` );
+
+            if( Boolean( node.getAttribute( "data-null" ) ) ){
+                res[ key ] = null;
+            } else {
+                res[ key ] = node.value;
+            }
+
+            return res;
+        }, {} ) );
 
     const response = await fetch( `${BASE_URL}/${id}`, {
         method: "put",
@@ -70,7 +86,7 @@ async function updateName( id ){
             "accept": "application/json",
             "x-csrf-token": CSRF_TOKEN
         },
-        body: JSON.stringify( { name } )
+        body
     } );
 
     const { status, statusText } = response;
@@ -79,7 +95,7 @@ async function updateName( id ){
         if( status === 422 ){
             const json = await response.json();
 
-            showErrors( json.errors.name );
+            showErrors( json.errors );
         } else {
             alert( `[ERROR] ${status} ${statusText}` );
         }
@@ -87,13 +103,13 @@ async function updateName( id ){
         return;
     }
 
-    nameInput.focus();
-
     // TODO на что-то почеловечнее
     alert( "Успешно" );
 }
 
-async function deleteItem( id ){
+async function destroy( id ){
+    clearErrors();
+
     const response = await fetch( `${BASE_URL}/${id}`, {
         method: "delete",
         headers: {
@@ -108,7 +124,7 @@ async function deleteItem( id ){
         if( status === 422 ){
             const json = await response.json();
 
-            showErrors( json.errors.name );
+            showErrors( json.errors );
         } else {
             alert( `[ERROR] ${status} ${statusText}` );
         }
@@ -117,5 +133,5 @@ async function deleteItem( id ){
     }
 
     totalCount--;
-    document.getElementById( "data" ).removeChild( document.getElementById( `name${id}` ) );
+    document.getElementById( "data" ).removeChild( document.getElementById( `row${id}` ) );
 }

@@ -21,10 +21,8 @@ class SummaryStatusController extends Controller
     {
         $summaryStatuses = $summaryStatusRepository->getAll();
 
-        return view( "directories.simple", [
-            "data" => $summaryStatuses,
-            "directoryName" => "Статусы (решения)",
-            "baseUrl" => url( "/summary_statuses" )
+        return view( "directories.summary_statuses", [
+            "data" => $summaryStatuses
         ] );
     }
 
@@ -37,9 +35,7 @@ class SummaryStatusController extends Controller
     }
 
     public function update( AdminSummaryStatusRequest $request, SummaryStatus $summaryStatus){
-        $summaryStatus
-            ->fill(["name" => $request->get("name")])
-            ->save();
+        $summaryStatus->update( $request->all() );
     }
 
     public function delete( AdminSummaryStatusDeleteRequest $request, SummaryStatus $summaryStatus ){
