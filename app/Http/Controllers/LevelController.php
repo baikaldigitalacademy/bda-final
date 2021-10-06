@@ -7,6 +7,7 @@ use App\Http\Requests\AdminLevelRequest;
 use App\Models\Level;
 use Illuminate\Contracts\View\View;
 use App\Repositories\LevelRepository;
+use Illuminate\Database\QueryException;
 
 class LevelController extends Controller
 {
@@ -43,6 +44,10 @@ class LevelController extends Controller
     }
 
     public function delete( AdminLevelDeleteRequest $request, Level $level ){
-        $level->delete();
+        try{
+            $level->delete();
+        }catch (QueryException $e){
+            return response('I cannot delete a dependent field.', 400);
+        }
     }
 }

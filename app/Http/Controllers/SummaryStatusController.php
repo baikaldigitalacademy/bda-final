@@ -7,6 +7,7 @@ use App\Http\Requests\AdminSummaryStatusRequest;
 use App\Models\SummaryStatus;
 use Illuminate\Contracts\View\View;
 use App\Repositories\SummaryStatusRepository;
+use Illuminate\Database\QueryException;
 
 class SummaryStatusController extends Controller
 {
@@ -39,6 +40,10 @@ class SummaryStatusController extends Controller
     }
 
     public function delete( AdminSummaryStatusDeleteRequest $request, SummaryStatus $summaryStatus ){
-        $summaryStatus->delete();
+        try{
+            $summaryStatus->delete();
+        }catch (QueryException $e){
+            return response('I cannot delete a dependent field.', 400);
+        }
     }
 }
