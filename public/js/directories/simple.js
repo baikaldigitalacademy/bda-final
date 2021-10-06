@@ -40,8 +40,12 @@ async function create( successCallback ){
     const body = Array
         .from( document.querySelectorAll( "[data-create]" ) )
         .reduce( ( res, node ) => {
-            if( !Boolean( node.getAttribute( "data-not-include" ) ) ){
-                res[ node.getAttribute( "data-create" ) ] = node.value;
+            const key = node.getAttribute( "data-create" );
+
+            if( node.getAttribute( "data-null" ) === "true" ){
+                res[ key ] = null;
+            } else {
+                res[ key ] = node.value;
             }
 
             return res;
@@ -81,7 +85,7 @@ async function update( id ){
         .reduce( ( res, node ) => {
             const key = node.getAttribute( `data-edit${id}` );
 
-            if( Boolean( node.getAttribute( "data-null" ) ) ){
+            if( node.getAttribute( "data-null" ) === "true" ){
                 res[ key ] = null;
             } else {
                 res[ key ] = node.value;
@@ -139,6 +143,7 @@ async function destroy( id ){
         }
         else if( status === 400 ){
             const error = await response.text();
+
             showUnnamedErrors( [ error ] );
         } else {
             alert( `[ERROR] ${status} ${statusText}` );

@@ -29,8 +29,8 @@ class SummaryStatusController extends Controller
 
     public function create( AdminSummaryStatusRequest $request ){
         $summaryStatus = new SummaryStatus();
-        $summaryStatus->fill(["name" => $request->get("name")])
-            ->save();
+
+        $summaryStatus->fill( $request->all() )->save();
 
         return $summaryStatus->id;
     }

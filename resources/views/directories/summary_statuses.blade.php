@@ -23,7 +23,13 @@
         Название: <input data-create = "name" type = "text"> <br>
         <input id = "isColorEnabledCheckbox" type = "checkbox" onchange = "toggleIsColorInclude()">
         Цвет:
-        <input id = "colorEnabledInput" data-create = "color" type = "color" style = "display: none">
+        <input
+            id = "colorEnabledInput"
+            data-create = "color"
+            data-null = "true"
+            type = "color"
+            style = "display: none"
+        >
         <span id = "colorDisabledSpan">нет</span>
         <br>
         <button onclick = "create( createSummaryStatusesRow )">Добавить</button>
