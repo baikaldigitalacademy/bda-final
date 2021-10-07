@@ -1,7 +1,7 @@
 function index(){
     const options = {
         modules: {
-            toolbar: [ "bold", "italic", "underline" ]
+            toolbar: [ ["bold", "italic", "underline"], ["link"] ]
         },
         theme: "snow"
     };
