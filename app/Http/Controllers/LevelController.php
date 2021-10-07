@@ -44,10 +44,12 @@ class LevelController extends Controller
     }
 
     public function delete( AdminLevelDeleteRequest $request, Level $level ){
-        try{
+        try {
             $level->delete();
-        }catch (QueryException $e){
-            return response('I cannot delete a dependent field.', 400);
+        }catch (QueryException $exception){
+            return response(
+                "Cannot delete or update a parent row: a foreign key constraint fails.",
+                400);
         }
     }
 }

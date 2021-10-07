@@ -8,6 +8,7 @@ use App\Models\Position;
 use Illuminate\Contracts\View\View;
 use App\Repositories\PositionRepository;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 class PositionController extends Controller
 {
@@ -44,10 +45,12 @@ class PositionController extends Controller
     }
 
     public function delete( AdminPositionDeleteRequest $request, Position $position ){
-        try{
+        try {
             $position->delete();
-        }catch (QueryException $e){
-            return response('I cannot delete a dependent field.', 400);
+        }catch (QueryException $exception){
+            return response(
+                "Cannot delete or update a parent row: a foreign key constraint fails.",
+                400);
         }
     }
 }
