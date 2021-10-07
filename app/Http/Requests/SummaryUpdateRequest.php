@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SummaryUpdateRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class SummaryUpdateRequest extends FormRequest
     {
         return [
             "name" => "required|string|min:1|max:256",
-            "email" => "unique:summaries|required|email|min:1|max:256",
+            "email" => ["required", "email", "min:1", "max:256", Rule::unique('summaries', "email")->ignore($this->id)],
             "date" => "required|date",
             // TODO на сервер приходят теги, но текста нет
             "skills" => "required|string|min:1|max:2000",
