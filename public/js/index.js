@@ -1,3 +1,11 @@
+function clearOneFilter( name, value = "" ){
+    document.getElementsByName( name )[0].value = value;
+}
+
+function refreshClear(){
+    window.location.href = window.location.pathname;
+}
+
 function filtersFormOnSubmit( e ){
     e.preventDefault();
 

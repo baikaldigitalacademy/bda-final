@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
 use App\Http\Requests\AdminLevelDeleteRequest;
 use App\Http\Requests\AdminLevelRequest;
 use App\Models\Level;
 use Illuminate\Contracts\View\View;
 use App\Repositories\LevelRepository;
+use Illuminate\Database\QueryException;
 
 class LevelController extends Controller
 {
@@ -22,7 +22,7 @@ class LevelController extends Controller
     {
         $levels = $levelRepository->getAll();
 
-        return view( "simple_directory", [
+        return view( "directories.simple", [
             "data" => $levels,
             "directoryName" => "Уровни",
             "baseUrl" => url( "/levels" )
@@ -33,18 +33,21 @@ class LevelController extends Controller
         $level = new Level();
         $level->fill(["name" => $request->get("name")])
             ->save();
-        return response("Created", 200);
+
+        return $level->id;
     }
 
     public function update( AdminLevelRequest $request, Level $level){
         $level
             ->fill(["name" => $request->get("name")])
             ->save();
-        return response("Updated", 200);
     }
 
     public function delete( AdminLevelDeleteRequest $request, Level $level ){
-        $level->delete();
-        return response("Deleted", 200);
+        try{
+            $level->delete();
+        }catch (QueryException $e){
+            return response('I cannot delete a dependent field.', 400);
+        }
     }
 }

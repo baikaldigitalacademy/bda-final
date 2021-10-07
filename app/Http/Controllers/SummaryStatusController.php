@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
 use App\Http\Requests\AdminSummaryStatusDeleteRequest;
 use App\Http\Requests\AdminSummaryStatusRequest;
 use App\Models\SummaryStatus;
 use Illuminate\Contracts\View\View;
 use App\Repositories\SummaryStatusRepository;
+use Illuminate\Database\QueryException;
 
 class SummaryStatusController extends Controller
 {
@@ -22,29 +22,28 @@ class SummaryStatusController extends Controller
     {
         $summaryStatuses = $summaryStatusRepository->getAll();
 
-        return view( "simple_directory", [
-            "data" => $summaryStatuses,
-            "directoryName" => "Статусы (решения)",
-            "baseUrl" => url( "/summary_statuses" )
+        return view( "directories.summary_statuses", [
+            "data" => $summaryStatuses
         ] );
     }
 
     public function create( AdminSummaryStatusRequest $request ){
         $summaryStatus = new SummaryStatus();
-        $summaryStatus->fill(["name" => $request->get("name")])
-            ->save();
-        return response("Created", 200);
+
+        $summaryStatus->fill( $request->all() )->save();
+
+        return $summaryStatus->id;
     }
 
     public function update( AdminSummaryStatusRequest $request, SummaryStatus $summaryStatus){
-        $summaryStatus
-            ->fill(["name" => $request->get("name")])
-            ->save();
-        return response("Updated", 200);
+        $summaryStatus->update( $request->all() );
     }
 
     public function delete( AdminSummaryStatusDeleteRequest $request, SummaryStatus $summaryStatus ){
-        $summaryStatus->delete();
-        return response("Deleted", 200);
+        try{
+            $summaryStatus->delete();
+        }catch (QueryException $e){
+            return response('I cannot delete a dependent field.', 400);
+        }
     }
 }

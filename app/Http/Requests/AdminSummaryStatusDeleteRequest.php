@@ -24,7 +24,7 @@ class AdminSummaryStatusDeleteRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "exists:positions,name|string|min:1"
+            "name" => "exists:summary_statuses,name|string|min:1"
         ];
     }
 }

@@ -23,8 +23,14 @@ class AdminSummaryStatusRequest extends FormRequest
      */
     public function rules()
     {
+        $unique = "unique:summary_statuses,name";
+
+        if( $this->summary_status ){
+            $unique .= ",{$this->summary_status->id}";
+        }
+
         return [
-            "name" => "string|min:1"
+            "name" => "$unique|string|min:1"
         ];
     }
 }

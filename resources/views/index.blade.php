@@ -67,6 +67,7 @@
                     value = "{{ $name ?? "" }}"
                     placeholder = "Иванов Иван"
                 >
+                <button type = "button" onclick = "clearOneFilter( 'name' )">Сбросить</button>
             </div>
             <div>
                 E-Mail:
@@ -75,6 +76,7 @@
                     value = "{{ $email ?? "" }}"
                     placeholder = "example@example.com"
                 >
+                <button type = "button" onclick = "clearOneFilter( 'email' )">Сбросить</button>
             </div>
             <div>
                 Позиция:
@@ -94,6 +96,7 @@
                         </option>
                     @endforeach
                 </select>
+                <button type = "button" onclick = "clearOneFilter( 'position_id', 'any' )">Сбросить</button>
             </div>
             <div>
                 Уровень:
@@ -119,6 +122,7 @@
                         Без уровня
                     </option>
                 </select>
+                <button type = "button" onclick = "clearOneFilter( 'level_id', 'any' )">Сбросить</button>
             </div>
             <div>
                 Дата: от
@@ -133,6 +137,7 @@
                     name = "date_end"
                     value = {{ $dateEnd ?? "" }}
                 >
+                <button type = "button" onclick = "clearOneFilter( 'date_start' ); clearOneFilter( 'date_end' )">Сбросить</button>
             </div>
             <div>
                 Решение:
@@ -152,8 +157,10 @@
                         </option>
                     @endforeach
                 </select>
+                <button type = "button" onclick = "clearOneFilter( 'status_id', 'any' )">Сбросить</button>
             </div>
             <input type = "submit" value = "Применить">
+            <button type = "button" onclick = "refreshClear()">Сбросить все</button>
         </form>
         <h3>
             Резюме ({{ $summaries->count() }})

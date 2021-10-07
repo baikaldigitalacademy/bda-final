@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
 use App\Http\Requests\AdminPositionDeleteRequest;
 use App\Http\Requests\AdminPositionRequest;
 use App\Models\Position;
 use Illuminate\Contracts\View\View;
 use App\Repositories\PositionRepository;
+use Illuminate\Database\QueryException;
 
 class PositionController extends Controller
 {
@@ -22,7 +22,7 @@ class PositionController extends Controller
     {
         $positions = $positionRepository->getAll();
 
-        return view( "simple_directory", [
+        return view( "directories.simple", [
             "data" => $positions,
             "directoryName" => "Позиции",
             "baseUrl" => url( "/positions" )
@@ -33,18 +33,21 @@ class PositionController extends Controller
         $position = new Position();
         $position->fill(["name" => $request->get("name")])
             ->save();
-        return response("Created", 200);
+
+        return $position->id;
     }
 
     public function update( AdminPositionRequest $request, Position $position){
         $position
             ->fill(["name" => $request->get("name")])
             ->save();
-        return response("Updated", 200);
     }
 
     public function delete( AdminPositionDeleteRequest $request, Position $position ){
-        $position->delete();
-        return response("Deleted", 200);
+        try{
+            $position->delete();
+        }catch (QueryException $e){
+            return response('I cannot delete a dependent field.', 400);
+        }
     }
 }
