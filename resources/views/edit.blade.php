@@ -35,7 +35,7 @@
                 <input size="100%"
                     name="name"
                     id = "name"
-                    value="{{$data->name}}"
+                    value = "{{old('name') ?? $data->name}}"
                 >
             </fieldset>
             <fieldset>
@@ -43,7 +43,7 @@
                 <input
                     type="date"
                     name="date"
-                    value="{{$data->date}}"
+                    value="{{old('date') ?? $data->date}}"
                 >
             </fieldset>
             <fieldset>
@@ -52,7 +52,7 @@
                     type="email"
                     id = "email"
                     name="email"
-                    value="{{$data->email}}"
+                    value="{{old('email') ?? $data->email}}"
                 >
             </fieldset>
             <fieldset>
@@ -60,7 +60,7 @@
                 <select name="status_id">
                     @foreach($statuses as $it)
                         <option value = {{$it->id}}
-                        @if($it->name == $data->status)
+                        @if($it->id == old("status_id") or $it->name == $data->status)
                              selected>
                         @else
                             >
@@ -81,7 +81,7 @@
                     </option>
                     @foreach($levels as $it)
                         <option value = {{$it->id}}
-                        @if($it->name == $data->level)
+                        @if($it->id == old("level_id") or $it->name == $data->level)
                             selected>
                             @else
                                 >
@@ -96,7 +96,7 @@
                 <select name="position_id">
                     @foreach($positions as $it)
                         <option value = {{$it->id}}
-                        @if($it->name == $data->position)
+                        @if($it->id == old("position_id") or $it->name == $data->position)
                             selected>
                             @else
                                 >
@@ -109,19 +109,19 @@
             <fieldset>
                 <legend>Навыки</legend>
                 <div id = "skillsEditorDiv">
-                    {!! $data->skills !!}
+                    {!! old('skills') ?? $data->skills !!}
                 </div>
             </fieldset>
             <fieldset>
                 <legend>Описание</legend>
                 <div id = "descriptionEditorDiv">
-                    {!! $data->description !!}
+                    {!! old('description') ?? $data->description !!}
                 </div>
             </fieldset>
             <fieldset>
                 <legend>Опыт</legend>
                 <div id = "experienceEditorDiv">
-                    {!! $data->experience !!}
+                    {!! old('experience') ?? $data->experience !!}
                 </div>
             </fieldset>
         </fieldset>
