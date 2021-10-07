@@ -140,8 +140,11 @@ class SummaryController extends Controller {
         return redirect( route( "summaries_one", [ "id" => $id ] ) );
     }
 
-    public function pdf(Request $request, int $id){
-        //TODO: pdf
-        return redirect( route( "summaries_one", [ "id" => $id ] ) );
+    public function pdf(SummaryRepository $summaryRepository, Request $request){
+        $summary = $summaryRepository->getForView( $request );
+        $pdf = \PDF::loadView( "pdf", [ "summary" => $summary[ "data" ] ] );
+        $fileName = "summary.pdf";
+
+        return $pdf->download( $fileName );
     }
 }
