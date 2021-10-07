@@ -19,17 +19,21 @@
         .subsection{
             text-decoration: underline;
         }
+
+        .from-editor > p{
+            margin: 0px;
+        }
     </style>
 </head>
 
 <body>
 <span class = "head">{{ $summary->name }}</span> <br>
-<a href = "{{ $summary->email }}">{{ $summary->email }}</a> <br> <br>
-<span class = "subsection">Ключевые навыки:</span> <br>
-{{ $summary->skills }} <br> <br>
-<span class = "subsection">Резюме:</span> <br>
-{{ $summary->description }} <br> <br>
-<span class = "subsection">Опыт:</span> <br>
-{{ $summary->experience }}
+<a href = "{{ $summary->email }}">{{ $summary->email }}</a> <br> <br> <br>
+<span class = "subsection">Ключевые навыки:</span>
+<div class = "from-editor">{!! $summary->skills !!}</div> <br> <br>
+<span class = "subsection">Резюме:</span>
+<div class = "from-editor">{!! $summary->description !!}</div> <br> <br>
+<span class = "subsection">Опыт:</span>
+<div class = "from-editor">{!! $summary->experience !!}</div>
 </body>
 </html>
