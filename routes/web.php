@@ -6,8 +6,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\SummaryStatusController;
+use App\Http\Controllers\AuthController;
 
-Route::get( "/", [ SummaryController::class, "index" ] )->name( "dashboard" );
+Route::get( "/", [ SummaryController::class, "index" ] )
+    ->middleware( "auth.roles:admin" )
+    ->name( "dashboard" );
 
 // Summaries
 Route::prefix('/summaries')->group(function(){
@@ -60,3 +63,10 @@ Route::put(
     "/summaries/{summary}/status",
     [ SummaryController::class, "updateStatus" ]
 )->name( "summaries_update_status" );
+
+// Auth views
+Route::get( "/login", [ AuthController::class, "login" ] )->name( "login" );
+
+// Auth actions
+Route::post( "/sign_in", [ AuthController::class, "signIn" ] )->name( "signIn" );
+Route::get( "/sign_out", [ AuthController::class, "signOut" ] )->name( "signOut" );

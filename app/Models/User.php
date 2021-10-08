@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable
 {
@@ -18,9 +19,9 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        "name",
+        "login",
+        "password"
     ];
 
     /**
@@ -29,16 +30,22 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        "password"
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array
+     * @return BelongsTo
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function role(): BelongsTo{
+        return $this->belongsTo( Role::class );
+    }
+
+    /**
+     * @param array $roles
+     *
+     * @return bool
+     */
+    public function hasAnyRole( array $roles ): bool{
+        return in_array( $this->role->name, $roles );
+    }
 }
