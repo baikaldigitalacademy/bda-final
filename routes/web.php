@@ -55,3 +55,8 @@ Route::prefix("/summary_statuses")->group(function(){
 });
 
 Route::delete( "/summaries/{summary}", [ SummaryController::class, "destroy" ] )->name( "summaries_destroy" );
+
+Route::put(
+    "/summaries/{summary}/status",
+    [ SummaryController::class, "updateStatus" ]
+)->name( "summaries_update_status" );
