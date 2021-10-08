@@ -15,10 +15,19 @@ class SummaryStatusSeeder extends Seeder
      */
     public function run()
     {
-        $items = ["назначено собеседование", "отказ", "одобрен", "слился"];
-        foreach ($items as $it){
+        $items = [
+            [ "назначено собеседование", null ],
+            [ "отказ", "#f5c4c5" ],
+            [ "одобрен", "#d3e7cd" ],
+            [ "слился", null ]
+        ];
+
+        foreach( $items as [ $name, $color ] ){
             $position = new SummaryStatus();
-            $position->name = $it;
+
+            $position->name = $name;
+            $position->color = $color;
+
             $position->save();
         }
     }

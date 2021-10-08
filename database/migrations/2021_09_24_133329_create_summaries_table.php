@@ -15,15 +15,9 @@ class CreateSummariesTable extends Migration
     {
         Schema::create('summaries', function (Blueprint $table) {
             $table->id();
-            $table->integer('order');
             $table->string('name', 256);
-            $table->string('middle_name', 256);
-            $table->string('surname', 256);
-            $table->string('email', 256);
-            //$table->integer('position_id')->nullable();
-            //$table->integer('level_id');
+            $table->string('email', 256)->unique();
             $table->date('date');
-            //$table->integer('status_id');
             $table->text('skills');
             $table->text('description');
             $table->text('experience');

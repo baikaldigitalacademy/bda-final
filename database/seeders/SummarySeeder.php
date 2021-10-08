@@ -14,13 +14,15 @@ class SummarySeeder extends Seeder
      */
     public function run()
     {
-        $factory = Summary::factory();
-        $n = 100;
+//        $factory = Summary::factory();
+//        $n = 100;
+//
+//        for($i = 0; $i < $n; $i++){
+//            $summary = $factory->makeOne();
+//            $summary->order = $i + 1;
+//            $summary->save();
+//        }
 
-        for($i = 0; $i < $n; $i++){
-            $summary = $factory->makeOne();
-            $summary->order = $i + 1;
-            $summary->save();
-        }
+        Summary::factory( 100 )->create();
     }
 }
