@@ -51,6 +51,10 @@
 @endpush
 
 @push( "scripts" )
+    <script>
+        const BASE_URL = "{{ url( "/summaries" ) }}";
+        const CSRF_TOKEN = "{{ csrf_token() }}";
+    </script>
     <script src = "{{ asset( "js/index.js" ) }}"></script>
 @endpush
 
@@ -179,17 +183,30 @@
             @foreach( $summaries as $summary )
                 @php( $style = $summary->status->color ? "background-color: {$summary->status->color}" : "" )
 
-                <tr
-                    class = "clickable"
-                    onclick = "window.open( '{{ route( "summaries_one", [ "id" => $summary->id ] ) }}', '_self' )"
-                >
+                <tr id = "summary{{ $summary->id }}">
                     <td style = "{{ $style }}">{{ $summary->id }}</td>
-                    <td style = "{{ $style }}">{{ $summary->name }}</td>
+                    <td
+                        style = "{{ $style }}"
+{{--                        onclick = "window.open( '{{ route( "summaries_one", [ "id" => $summary->id ] ) }}', '_self' )"--}}
+                    >
+                        <a href = "{{ route( "summaries_one", [ "id" => $summary->id ] ) }}">{{ $summary->name }}</a>
+                    </td>
                     <td style = "{{ $style }}">{{ $summary->email }}</td>
                     <td style = "{{ $style }}">{{ $summary->position->name }}</td>
                     <td style = "{{ $style }}">{{ $summary->level->name ?? "N/A" }}</td>
                     <td style = "{{ $style }}">{{ $summary->date }}</td>
-                    <td style = "{{ $style }}">{{ $summary->status->name }}</td>
+                    <td style = "{{ $style }}">
+                        <select id = "summaryStatus{{ $summary->id }}" onchange = "changeStatus( {{ $summary->id }} )">
+                            @foreach( $statuses as $status )
+                                <option
+                                    value = "{{ $status->id }}"
+                                    @if( $summary->status->id === $status->id ) selected @endif
+                                >
+                                    {{ $status->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </td>
                 </tr>
             @endforeach
         </table>

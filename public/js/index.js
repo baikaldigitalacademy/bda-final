@@ -88,6 +88,29 @@ function headerElementOnClickFactory( orderColumn, orderDirection ){
     };
 }
 
+async function changeStatus( id ){
+    const status_id = Number( document.getElementById( `summaryStatus${id}` ).value );
+
+    const response = await fetch( `${BASE_URL}/${id}/status`, {
+        method: "put",
+        headers: {
+            "content-type": "application/json",
+            "accept": "application/json",
+            "x-csrf-token": CSRF_TOKEN
+        },
+        body: JSON.stringify( {status_id } )
+    } );
+
+    // TODO process error
+
+    const { payload: color } = await response.json();
+    const tds = document.getElementById( `summary${id}` ).getElementsByTagName( "td" )
+
+    for( const td of tds ){
+        td.style.backgroundColor = color;
+    }
+}
+
 function index(){
     const filtersForm = document.getElementById( "filtersForm" );
     const headerElements = document.querySelectorAll( "[data-header]" );

@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Requests\SummaryGetAllRequest;
 use App\Http\Requests\SummaryUpdateRequest;
+use App\Http\Requests\SummaryUpdateStatusRequest;
 use App\Models\Summary;
 use App\Repositories\SummaryRepository;
 use App\Repositories\PositionRepository;
@@ -132,6 +133,22 @@ class SummaryController extends Controller {
         $summaryRepository->edit( $id, $request->all() );
 
         return redirect( route( "summaries_one", [ "id" => $id ] ) );
+    }
+
+    // TODO with repository
+    /**
+     * Update summary status.
+     *
+     * @param SummaryUpdateStatusRequest $request
+     * @param Summary $summary
+     *
+     * @return array
+     */
+    public function updateStatus( SummaryUpdateStatusRequest $request, Summary $summary ): array
+    {
+        $summary->update( $request->all() );
+
+        return [ "payload" => $summary->status->color ];
     }
 
     public function store(SummaryUpdateRequest $request, SummaryRepository $summaryRepository){

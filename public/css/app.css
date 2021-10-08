@@ -28,7 +28,7 @@ body{
 
 @media( min-width: 761px ){
     .container__block0{
-        width: 60%;
-        max-width: 60%;
+        width: 80%;
+        max-width: 80%;
     }
 }
