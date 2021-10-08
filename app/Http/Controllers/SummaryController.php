@@ -67,14 +67,10 @@ class SummaryController extends Controller {
      * Remove the specified resource from storage.
      *
      * @param Summary $summary
-     *
-     * @return RedirectResponse
      */
-    public function destroy( Summary $summary ): RedirectResponse
+    public function destroy( Summary $summary )
     {
         $summary->delete();
-
-        return redirect( route( "dashboard" ) );
     }
 
     public function edit(Request $request,
