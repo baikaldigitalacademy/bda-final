@@ -19,7 +19,7 @@ Route::prefix('/summaries')->group(function(){
         Route::get( "/",[ SummaryController::class, "view" ]  )->name( "summaries_one" );
         //actions
         Route::put( "/update", [ SummaryController::class, "update" ] )->name("summaryUpdate");
-        Route::post( "/update", [ SummaryController::class, "store" ] )->name("summaryUpdate");
+        Route::post( "/update", [ SummaryController::class, "store" ] )->name("summaryStore");
     });
 
     Route::get("/", function (){

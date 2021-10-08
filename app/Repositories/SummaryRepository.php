@@ -86,11 +86,20 @@ class SummaryRepository
         ];
     }
 
+    protected function fixTabs($data){
+        $data["skills"] = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;", $data["skills"]);
+        $data["experience"] = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;", $data["experience"]);
+        $data["description"] = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;", $data["description"]);
+        return $data;
+    }
+
     /**
      * @param int $id
      * @param array $fields
      */
     public function edit( int $id, array $fields ){
+        $fields = $this->fixTabs($fields);
+
         $summary = Summary::find( $id );
 
         $summary->fill( $fields );
@@ -98,6 +107,8 @@ class SummaryRepository
     }
 
     public function store( array $fields ){
+        $fields = $this->fixTabs($fields);
+
         $summary = new Summary();
 
         $summary->fill( $fields );
