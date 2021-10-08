@@ -101,7 +101,7 @@ class SummaryController extends Controller {
     public function create(
         PositionRepository $positionRepository,
         LevelRepository $levelRepository,
-        SummaryStatusRepository $summaryStatusRepository,
+        SummaryStatusRepository $summaryStatusRepository
         )
     {
         return view('edit',
