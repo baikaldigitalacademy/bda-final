@@ -14,15 +14,49 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user = new User();
+        $password = bcrypt( "123456" );
 
-        $user
-            ->fill( [
+        $data = [
+            [
                 "name" => "Admin",
                 "login" => "admin",
-                "password" => bcrypt( "123456" ),
+                "password" => $password,
                 "role_id" => 1
-            ] )
-            ->save();
+            ],
+            [
+                "name" => "HR",
+                "login" => "hr",
+                "password" => $password,
+                "role_id" => 2
+            ],
+            [
+                "name" => "FroZo",
+                "login" => "frozo",
+                "password" => $password,
+                "role_id" => 1
+            ],
+            [
+                "name" => "Salriel",
+                "login" => "salriel",
+                "password" => $password,
+                "role_id" => 1
+            ],
+            [
+                "name" => "Карина",
+                "login" => "pkarina",
+                "password" => $password,
+                "role_id" => 1
+            ],
+            [
+                "name" => "Слава",
+                "login" => "Slava200",
+                "password" => $password,
+                "role_id" => 1
+            ]
+        ];
+
+        foreach( $data as $userFields ){
+            ( new User() )->fill( $userFields )->save();
+        }
     }
 }
