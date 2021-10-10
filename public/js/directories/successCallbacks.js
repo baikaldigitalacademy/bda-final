@@ -2,12 +2,16 @@ function createNameRow( { id, name } ){
     const div = document.createElement( "div" );
 
     div.setAttribute( "id", `row${id}` );
+    div.setAttribute( "class", "d-flex mt-2" );
 
     div.innerHTML =
-        `${++totalCount}.
-        <input data-edit${id} = "name" type = "text" value = "${name}">
-        <button onclick = "update( ${id} )">Сохранить</button>
-        <button onclick = "destroy( ${id} )">Удалить</button>`;
+        `<input data-edit${id} = "name" type = "text" value = "${name}" class = "form-control me-2">
+        <button class = "btn btn-success me-2" onclick = "update( ${id} )">
+          <i class = "fas fa-check me-2"></i>
+        </button>
+        <button class = "btn btn-danger me-2" onclick = "destroy( ${id} )">
+          <i class = "fas fa-trash"></i>
+        </button>`;
 
     document.getElementById( "data" ).appendChild( div );
 }
