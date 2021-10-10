@@ -1,7 +1,3 @@
-body{
-    margin: 0;
-}
-
 .clickable{
     transition: .25s;
 }
@@ -9,26 +5,4 @@ body{
 .clickable:hover{
     cursor: pointer;
     opacity: .75;
-}
-
-.container{
-    display: flex;
-    justify-content: center;
-
-    width: 100vw;
-    height: 100vh;
-}
-
-@media( max-width: 760px ){
-    .container__block0{
-        width: 100%;
-        max-width: 100%;
-    }
-}
-
-@media( min-width: 761px ){
-    .container__block0{
-        width: 80%;
-        max-width: 80%;
-    }
 }

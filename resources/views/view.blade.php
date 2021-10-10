@@ -13,43 +13,128 @@
 @endpush
 
 @section("content")
-    <a href = "{{ route( "summaries_edit", [ "id" => $data->id ] ) }}" class = "button">Изменить</a>
-    <button onclick = "destroy( '{{ route( "summaries_destroy", [ "summary" => $data->id ] ) }}' )">Удалить</button>
-    <a href = "{{ route( "pdf", [ "id" => $data->id ] ) }}" class = "button">Скачать PDF</a>
-    <fieldset>
-        <legend>Полное имя</legend>
-        {{$data->name}}
-    </fieldset>
-    <fieldset>
-        <legend>Дата собеседования</legend>
-        {{$data->date}}
-    </fieldset>
-    <fieldset>
-        <legend>E-mail</legend>
-        {{$data->email}}
-    </fieldset>
-    <fieldset>
-        <legend>Статус</legend>
-        {{$data->status}}
-    </fieldset>
-    <fieldset>
-        <legend>Уровень</legend>
-        {{$data->level}}
-    </fieldset>
-    <fieldset>
-        <legend>Позиция</legend>
-        {{$data->position}}
-    </fieldset>
-    <fieldset>
-        <legend>Навыки</legend>
-            {!! $data->skills !!}
-    </fieldset>
-    <fieldset>
-        <legend>Описание</legend>
-            {!! $data->description !!}
-    </fieldset>
-    <fieldset>
-        <legend>Опыт</legend>
-            {!! $data->experience !!}
-    </fieldset>
+    <div class = "container">
+        <div class = "mt-3">
+            <a
+                href = "{{ route( "summaries_edit", [ "id" => $data->id ] ) }}"
+                class = "btn btn-light"
+            >
+                Изменить
+            </a>
+            <a
+                href = "{{ route( "pdf", [ "id" => $data->id ] ) }}"
+                class = "btn btn-light"
+            >
+                Скачать PDF
+            </a>
+            <button
+                class = "btn btn-danger"
+                onclick = "destroy( '{{ route( "summaries_destroy", [ "summary" => $data->id ] ) }}' )"
+            >
+                Удалить
+            </button>
+        </div>
+        <div class = "row text-black mt-3">
+            <div class = "col-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Полное имя</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ $data->name }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class = "col-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Дата собеседования</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ $data->date }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class = "col-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">E-Mail</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ $data->email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "row text-black">
+            <div class = "col-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Статус</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ $data->status }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class = "col-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Уровень</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ $data->level }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class = "col-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Позиция</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ $data->position }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "row text-black">
+            <div class = "col-12">
+                <div class = "card bg-light">
+                    <div class="card-header">Навыки</div>
+                    <div class="card-body">
+                        {!! $data->skills !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "row text-black mt-3">
+            <div class = "col-12">
+                <div class = "card bg-light">
+                    <div class="card-header">Описание</div>
+                    <div class="card-body">
+                        {!! $data->description !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "row text-black mt-3">
+            <div class = "col-12">
+                <div class = "card bg-light">
+                    <div class="card-header">Опыт</div>
+                    <div class="card-body">
+                        {!! $data->experience !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "mt-3">
+            <a
+                href = "{{ route( "summaries_edit", [ "id" => $data->id ] ) }}"
+                class = "btn btn-light"
+            >
+                Изменить
+            </a>
+            <a
+                href = "{{ route( "pdf", [ "id" => $data->id ] ) }}"
+                class = "btn btn-light"
+            >
+                Скачать PDF
+            </a>
+            <button
+                class = "btn btn-danger"
+                onclick = "destroy( '{{ route( "summaries_destroy", [ "summary" => $data->id ] ) }}' )"
+            >
+                Удалить
+            </button>
+        </div>
+    </div>
 @endsection
