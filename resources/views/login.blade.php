@@ -14,18 +14,18 @@
     <main class="form-signin">
         <form method="post" action="{{route("signIn")}}">
             @csrf
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <h1 class="h3 mb-3 fw-normal">BDA final</h1>
 
             <div class="form-floating text-dark">
-                <input name="login" type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
+                <input name="login" type="text" class="form-control" id="floatingInput" placeholder="Login">
+                <label for="floatingInput">Login</label>
             </div>
-            <div class="form-floating text-dark">
+            <div class="form-floating text-dark mt-2">
                 <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
                 <label for="floatingPassword">Password</label>
             </div>
 
-            <button class="w-100 btn btn-lg btn-secondary" type="submit">Sign in</button>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
         </form>
     </main>
 </body>
