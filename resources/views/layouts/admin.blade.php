@@ -3,7 +3,7 @@
 ] )
 
 @section( "content" )
-    <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 280px">
+    <div class="d-flex flex-column flex-shrink-0 p-3 border-end" style="width: 280px">
         <span class="fs-4">Справочники</span>
         <hr>
         <ul class = "nav nav-pills flex-column mb-auto">
