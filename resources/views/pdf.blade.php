@@ -39,7 +39,7 @@
 
 <body>
 <span class = "head">{{ $summary->name }}</span> <br>
-<a href = "{{ $summary->email }}">{{ $summary->email }}</a> <br> <br> <br>
+<a href = "mailto:{{ $summary->email }}" target = "_blank">{{ $summary->email }}</a> <br> <br> <br>
 <span class = "subsection">Ключевые навыки:</span>
 <div class = "from-editor">{!! $summary->skills !!}</div> <br> <br>
 <span class = "subsection">Резюме:</span>
