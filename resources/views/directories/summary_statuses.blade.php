@@ -1,4 +1,4 @@
-@extends( "layouts.app", [
+@extends( "layouts.admin", [
   "title" => "Статусы (решения)",
   "icons" => true
 ] )
@@ -15,14 +15,19 @@
     <script src = "{{ asset( "js/directories/summaryStatuses.js" ) }}"></script>
 @endpush
 
-@section( "content" )
-    <div id = "errorsDiv"></div>
+@section( "content-admin" )
     <h3>Справочник «Статусы (решения)»</h3>
-    <fieldset>
-        <legend>Новое значение:</legend>
-        Название: <input data-create = "name" type = "text"> <br>
-        <input id = "isColorEnabledCheckbox" type = "checkbox" onchange = "toggleIsColorInclude()">
-        Цвет:
+    <div id = "errorsDiv" class = "alert alert-danger d-none"></div>
+    <label for = "name">Новое значение</label>
+    <input id = "name" data-create = "name" type = "text" class = "form-control" placeholder = "название">
+    <div class = "mt-3">
+        <input
+            id = "isColorEnabledCheckbox"
+            type = "checkbox"
+            class = "form-check-input"
+            onchange = "toggleIsColorInclude()"
+        >
+        <label for = "isColorEnabledCheckbox">Цвет:</label>
         <input
             id = "colorEnabledInput"
             data-create = "color"
@@ -31,17 +36,22 @@
             style = "display: none"
         >
         <span id = "colorDisabledSpan">нет</span>
-        <br>
-        <button onclick = "create( createSummaryStatusesRow )">Добавить</button>
-    </fieldset>
-    <div id = "data">
+    </div>
+    <button onclick = "create( createSummaryStatusesRow )" class = "btn btn-primary mt-3">Добавить</button>
+    <div id = "data" class = "mt-3">
         @foreach( $data as $row )
-            <div id = "row{{ $row->id }}">
-                {{ $loop->index + 1 }}.
-                <input data-edit{{ $row->id }} = "name" type = "text" value = "{{ $row->name }}">
+            <div id = "row{{ $row->id }}" class = "d-flex align-items-center mb-2">
+                <input
+                    data-edit{{ $row->id }} = "name"
+                    type = "text"
+                    class = "form-control"
+                    value = "{{ $row->name }}"
+                >
                 <input
                     id = "isColorEnabledCheckbox{{ $row->id }}"
                     type = "checkbox"
+                    class = "form-check-input ms-2 me-2"
+                    style = "padding: 5px"
                     onchange = "toggleIsColorInclude( {{ $row->id }} )"
                     @if( $row->color ) checked @endif
                 >
@@ -56,16 +66,21 @@
                         style = "display: none"
                     @endif
                 >
-                <span
+                <label
                     id = "colorDisabledSpan{{ $row->id }}"
+                    for = "isColorEnabledCheckbox{{ $row->id }}"
                     @if( $row->color )
                         style = "display: none"
                     @endif
                 >
                     нет
-                </span>
-                <button onclick = "update( {{ $row->id }} )">Сохранить</button>
-                <button onclick = "destroy( {{ $row->id }} )">Удалить</button>
+                </label>
+                <button onclick = "update( {{ $row->id }} )" class = "btn btn-success ms-2">
+                    <i class = "fas fa-check"></i>
+                </button>
+                <button onclick = "destroy( {{ $row->id }} )" class = "btn btn-danger ms-2">
+                    <i class = "fas fa-trash"></i>
+                </button>
             </div>
         @endforeach
     </div>

@@ -17,13 +17,13 @@
         <div class = "mt-3">
             <a
                 href = "{{ route( "summaries_edit", [ "id" => $data->id ] ) }}"
-                class = "btn btn-light"
+                class = "btn btn-primary"
             >
                 Изменить
             </a>
             <a
                 href = "{{ route( "pdf", [ "id" => $data->id ] ) }}"
-                class = "btn btn-light"
+                class = "btn btn-primary"
             >
                 Скачать PDF
             </a>
@@ -119,13 +119,13 @@
         <div class = "mt-3">
             <a
                 href = "{{ route( "summaries_edit", [ "id" => $data->id ] ) }}"
-                class = "btn btn-light"
+                class = "btn btn-primary"
             >
                 Изменить
             </a>
             <a
                 href = "{{ route( "pdf", [ "id" => $data->id ] ) }}"
-                class = "btn btn-light"
+                class = "btn btn-primary"
             >
                 Скачать PDF
             </a>

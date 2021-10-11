@@ -20,13 +20,20 @@ function createSummaryStatusesRow( { id, name, color } ){
     const div = document.createElement( "div" );
 
     div.setAttribute( "id", `row${id}` );
+    div.setAttribute( "class", "d-flex align-items-center mb-2" );
 
     div.innerHTML =
-        `${++totalCount}.
-        <input data-edit${id} = "name" type = "text" value = "${name}">
+        `<input
+            data-edit${id} = "name"
+            type = "text"
+            class = "form-control"
+            value = "${name}"
+        >
         <input
             id = "isColorEnabledCheckbox${id}"
             type = "checkbox"
+            class = "form-check-input ms-2 me-2"
+            style = "padding: 5px"
             onchange = "toggleIsColorInclude( ${id} )"
             ${color && "checked"}
         >
@@ -38,14 +45,19 @@ function createSummaryStatusesRow( { id, name, color } ){
             ${!color && "data-null = \"true\""}
             ${!color && "style = \"display: none\""}
         >
-        <span
+        <label
             id = "colorDisabledSpan${id}"
+            for = "isColorEnabledCheckbox${id}"
             ${color && "style = \"display: none\""}
         >
             нет
-        </span>
-        <button onclick = "update( ${id} )">Сохранить</button>
-        <button onclick = "destroy( ${id} )">Удалить</button>`;
+        </label>
+        <button onclick = "update( ${id} )" class = "btn btn-success ms-2">
+            <i class = "fas fa-check"></i>
+        </button>
+        <button onclick = "destroy( ${id} )" class = "btn btn-danger ms-2">
+            <i class = "fas fa-trash"></i>
+        </button>`;
 
     document.getElementById( "data" ).appendChild( div );
 }

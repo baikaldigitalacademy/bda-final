@@ -27,8 +27,8 @@
             @endif
 
             <div class = "mb-2">
-                <button type = "submit" class = "btn btn-light">Сохранить</button>
-                <a href = "." class = "btn btn-light">Назад</a>
+                <button type = "submit" class = "btn btn-success">Сохранить</button>
+                <a href = "." class = "btn btn-primary">Назад</a>
             </div>
             <label for = "name">Полное имя</label>
             <input
@@ -118,8 +118,8 @@
                 </div>
             </div>
             <div class = "mt-3">
-                <button type = "submit" class = "btn btn-light">Сохранить</button>
-                <a href = "." class = "btn btn-light">Назад</a>
+                <button type = "submit" class = "btn btn-success">Сохранить</button>
+                <a href = "." class = "btn btn-primary">Назад</a>
             </div>
             <input id = "skills" name = "skills" type = "text" hidden>
             <input id = "description" name = "description" type = "text" hidden>
