@@ -23,7 +23,7 @@
                 </div>
             @endif
             <div class="form-floating text-dark">
-                <input name="login" type="text" class="form-control" id="floatingInput" placeholder="Login">
+                <input name="login" type="text" class="form-control" id="floatingInput" placeholder="Login" value="{{old("login")}}">
                 <label for="floatingInput">Login</label>
             </div>
             <div class="form-floating text-dark mt-2">
