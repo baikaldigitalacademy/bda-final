@@ -15,7 +15,13 @@
         <form method="post" action="{{route("signIn")}}">
             @csrf
             <h1 class="h3 mb-3 fw-normal">BDA final</h1>
-
+            @if( $errors->any() )
+                <div class = "alert alert-danger">
+                    @foreach( $errors->all() as $error )
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
             <div class="form-floating text-dark">
                 <input name="login" type="text" class="form-control" id="floatingInput" placeholder="Login">
                 <label for="floatingInput">Login</label>
