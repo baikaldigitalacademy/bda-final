@@ -1,4 +1,26 @@
+const Link = Quill.import( "formats/link" );
+
+class CustomLink extends Link {
+    static sanitize( url ){
+        const value = super.sanitize( url );
+
+        if( value ){
+            for( const protocol of CustomLink.PROTOCOL_WHITELIST ){
+                if( value.startsWith( protocol ) ){
+                    return value;
+                }
+            }
+
+            return `https://${value}`;
+        }
+
+        return value;
+    }
+}
+
 function index(){
+    Quill.register( CustomLink );
+
     const options = {
         modules: {
             toolbar: [ ["bold", "italic", "underline"], ["link"] ]
