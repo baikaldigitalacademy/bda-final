@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class = "row text-black">
-            <div class = "col-4">
+            <div class = "col-3">
                 <div class="card bg-light mb-3">
                     <div class="card-header">Статус</div>
                     <div class="card-body">
@@ -69,19 +69,27 @@
                     </div>
                 </div>
             </div>
-            <div class = "col-4">
+            <div class = "col-3">
                 <div class="card bg-light mb-3">
                     <div class="card-header">Уровень</div>
                     <div class="card-body">
-                        <p class="card-text">{{ $data->level }}</p>
+                        <p class="card-text">{{ $data->level ?? "N/A" }}</p>
                     </div>
                 </div>
             </div>
-            <div class = "col-4">
+            <div class = "col-3">
                 <div class="card bg-light mb-3">
                     <div class="card-header">Позиция</div>
                     <div class="card-body">
                         <p class="card-text">{{ $data->position }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class = "col-3">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Кто завёл резюме</div>
+                    <div class="card-body">
+                        <p class="card-text">{{ $data->user_name }}</p>
                     </div>
                 </div>
             </div>

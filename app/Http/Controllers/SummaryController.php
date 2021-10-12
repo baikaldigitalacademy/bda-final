@@ -148,7 +148,8 @@ class SummaryController extends Controller {
     }
 
     public function store(SummaryUpdateRequest $request, SummaryRepository $summaryRepository){
-        $id = $summaryRepository->store($request->all());
+        $ownerId = \Auth::user()->id;
+        $id = $summaryRepository->store( array_merge( $request->all(), [ "owner_id" => $ownerId ] ) );
 
         return redirect( route( "summaries_one", [ "id" => $id ] ) );
     }

@@ -22,6 +22,11 @@ class CreateSummariesTable extends Migration
             $table->text('description');
             $table->text('experience');
             $table
+                ->foreignId( "owner_id" )
+                ->constrained( "users" )
+                ->onUpdate( "cascade" )
+                ->onDelete( "cascade" );
+            $table
                 ->foreignId('position_id')
                 ->constrained()
                 ->onUpdate('cascade')

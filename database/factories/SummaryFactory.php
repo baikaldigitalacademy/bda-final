@@ -26,6 +26,7 @@ class SummaryFactory extends Factory
             $lvl_id = mt_rand(1, 4);
         }
         return [
+            "owner_id" => 1,
             'name' => $this->faker->firstName() . " " . $this->faker->lastName() . " " . $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail(),
             'position_id' => mt_rand(1,2),

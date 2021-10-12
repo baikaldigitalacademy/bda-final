@@ -67,6 +67,7 @@ class SummaryRepository
             ->leftJoin('levels', 'levels.id', '=', 'summaries.level_id')
             ->leftJoin('summary_statuses', 'summary_statuses.id', '=', 'summaries.status_id')
             ->leftJoin('positions', 'positions.id', '=', 'summaries.position_id')
+            ->leftJoin('users', 'users.id', '=', 'summaries.owner_id')
             ->select(
                 "summaries.id as id",
                 "summaries.name as name",
@@ -78,6 +79,7 @@ class SummaryRepository
                 "summaries.skills as skills",
                 "summaries.description as description",
                 "summaries.experience as experience",
+                "users.name as user_name",
             )
             ->where('summaries.id', '=', $request->id)
             ->get())[0];
