@@ -9,6 +9,14 @@
         <ul class = "nav nav-pills flex-column mb-auto">
             <li>
                 <a
+                    href = "{{ route( "roles_all" ) }}"
+                    class = "nav-link text-white"
+                >
+                    Роли
+                </a>
+            </li>
+            <li>
+                <a
                     href = "{{ route( "positions_all" ) }}"
                     class = "nav-link text-white"
                 >

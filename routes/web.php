@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\SummaryStatusController;
@@ -33,6 +34,14 @@ Route::prefix('/summaries')->middleware( "auth.roles:admin,hr" )->group(function
 Route::middleware( "auth.roles:admin" )->group( function(){
     // Admin
     Route::get( "/admin", [ AdminController::class, "index" ] )->name( "admin" );
+
+    // Роли
+    Route::prefix( "/roles" )->group( function(){
+        Route::get( "/", [ RoleController::class, "index" ] )->name( "roles_all" );
+        Route::post( "/", [ RoleController::class, "store" ] )->name( "roles_store" );
+        Route::put( "/{role}", [ RoleController::class, "update" ] )->name( "roles_update" );
+        Route::delete( "/{role}", [ RoleController::class, "delete" ] )->name( "roles_delete" );
+    } );
 
     // Positions
     Route::prefix("/positions")->group(function(){
