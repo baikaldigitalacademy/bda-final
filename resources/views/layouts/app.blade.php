@@ -11,6 +11,7 @@
     @if( isset( $icons ) && $icons )
         <link rel = "stylesheet" type = "text/css" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     @endif
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     <link rel = "stylesheet" href = "{{ asset( "css/app.css" ) }}">
 
@@ -32,8 +33,13 @@
                     <li><a href="{{ route( "admin" ) }}" class="nav-link px-2 text-white">Администрирование</a></li>
                 </ul>
 
-                <div class="text-end">
-                    <a href = "{{ route( "signOut" ) }}" class = "btn btn-outline-light me-2">Выйти</a>
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{\Illuminate\Support\Facades\Auth::user()->name}}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="{{route("signOut")}}">Выйти</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
