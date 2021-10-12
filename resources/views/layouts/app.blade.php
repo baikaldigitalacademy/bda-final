@@ -30,7 +30,10 @@
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="{{ route( "dashboard" ) }}" class="nav-link px-2 text-white">Главная</a></li>
                     <li><a href="{{ route( "createNewCV" ) }}" class="nav-link px-2 text-white">Добавить резюме</a></li>
-                    <li><a href="{{ route( "admin" ) }}" class="nav-link px-2 text-white">Администрирование</a></li>
+
+                    @if( Auth::user()->role->name === "admin" )
+                        <li><a href="{{ route( "admin" ) }}" class="nav-link px-2 text-white">Администрирование</a></li>
+                    @endif
                 </ul>
 
                 <div class="dropdown">
