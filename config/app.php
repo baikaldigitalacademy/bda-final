@@ -179,6 +179,7 @@ return [
          * Custom Service Providers...
          */
         Barryvdh\Snappy\ServiceProvider::class,
+        App\Providers\AgentServiceProvider::class,
     ],
 
     /*

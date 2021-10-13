@@ -9,6 +9,7 @@
     $statusId = $query[ "status_id" ] ?? null;
     $orderColumn = $query[ "order_column" ] ?? "id";
     $orderDirection = $query[ "order_direction" ] ?? "asc";
+    $orderIconDirection = $orderDirection === "asc" ? "up" : "down";
 
     $headerColumn = function( $name, $order ) use( $orderColumn, $orderDirection ){
         $iconDirection = "up";
@@ -56,15 +57,12 @@
 @endpush
 
 @section( "content" )
-    <button class = "d-lg-none btn bg-primary text-white filters-show" onclick = "filters( 'show' )">
-        <i class = "fas fa-filter"></i>
-    </button>
     <div
         id = "filters"
         class="d-none d-lg-flex flex-column flex-shrink-0 p-3 bg-dark border-end filters"
-        style="width: 280px"
+        style="width: 280px; z-index: 1"
     >
-        <div class = "d-flex justify-content-between">
+        <div class = "container d-flex justify-content-between">
             <span class="fs-4">Фильтры</span>
             <button class = "btn border d-lg-none" onclick = "filters( 'hide' )">
                 <i class = "fas fa-times text-white"></i>
@@ -223,51 +221,170 @@
             </div>
         </form>
     </div>
-    <div class = "bg-white" style = "width: 100%; overflow: auto">
-        <table class = "table">
-            <thead>
-            <tr>
-                {{ $headerColumn( "ID", "id" ) }}
-                {{ $headerColumn( "Имя", "name" ) }}
-                {{ $headerColumn( "E-Mail", "email" ) }}
-                {{ $headerColumn( "Позиция", "position_id" ) }}
-                {{ $headerColumn( "Уровень", "level_id" ) }}
-                {{ $headerColumn( "Дата", "date" ) }}
-                {{ $headerColumn( "Решение", "status_id" ) }}
-            </tr>
-            </thead>
-            <tbody>
-            @foreach( $summaries as $summary )
-                @php( $style = $summary->status->color ? "background-color: {$summary->status->color}" : "" )
+    <div
+        @if( $agent->isMobile() )
+            class = "p-3"
+        @else
+            class = "bg-white"
+        @endif
 
-                <tr id = "summary{{ $summary->id }}">
-                    <td style = "{{ $style }}">{{ $summary->id }}</td>
-                    <td style = "{{ $style }}">
-                        <a href = "{{ route( "summaries_one", [ "id" => $summary->id ] ) }}">{{ $summary->name }}</a>
-                    </td>
-                    <td style = "{{ $style }}">{{ $summary->email }}</td>
-                    <td style = "{{ $style }}">{{ $summary->position->name }}</td>
-                    <td style = "{{ $style }}">{{ $summary->level->name ?? "N/A" }}</td>
-                    <td style = "{{ $style }}">{{ $summary->date }}</td>
-                    <td style = "{{ $style }}">
-                        <select
-                            id = "summaryStatus{{ $summary->id }}"
-                            class = "form-select"
-                            onchange = "changeStatus( {{ $summary->id }} )"
-                        >
-                            @foreach( $statuses as $status )
-                                <option
-                                    value = "{{ $status->id }}"
-                                    @if( $summary->status->id === $status->id ) selected @endif
-                                >
-                                    {{ $status->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </td>
-                </tr>
+        style = "width: 100%; overflow: auto"
+    >
+        @if( $agent->isMobile() )
+            <h3>Сортировка</h3>
+            <div class = "d-flex mb-3">
+                <select id = "orderColumnMobile" class = "form-select">
+                    <option
+                        value = "id"
+                        {{ $orderColumn === "id" ? "selected" : "" }}
+                    >
+                        ID
+                    </option>
+                    <option
+                        value = "name"
+                        {{ $orderColumn === "name" ? "selected" : "" }}
+                    >
+                        Имя
+                    </option>
+                    <option
+                        value = "email"
+                        {{ $orderColumn === "email" ? "selected" : "" }}
+                    >
+                        E-Mail
+                    </option>
+                    <option
+                        value = "position_id"
+                        {{ $orderColumn === "position_id" ? "selected" : "" }}
+                    >
+                        Позиция
+                    </option>
+                    <option
+                        value = "level_id"
+                        {{ $orderColumn === "level_id" ? "selected" : "" }}
+                    >
+                        Уровень
+                    </option>
+                    <option
+                        value = "date"
+                        {{ $orderColumn === "date" ? "selected" : "" }}
+                    >
+                        Дата
+                    </option>
+                    <option
+                        value = "status_id"
+                        {{ $orderColumn === "status_id" ? "selected" : "" }}
+                    >
+                        Статус
+                    </option>
+                </select>
+                <button
+                    id = "orderDirectionMobile"
+                    class = "btn border ms-2"
+                    data-value = "{{ $orderDirection }}"
+                    onclick = "toggleOrderDirectionMobile()"
+                >
+                    <i class = "fas fa-sort-amount-{{ $orderIconDirection }} text-primary"></i>
+                </button>
+                <button class = "btn btn-success ms-2" onclick = "applySortMobile()">
+                    <i class = "fas fa-check"></i>
+                </button>
+            </div>
+            @foreach( $summaries as $summary )
+                <div class = "card bg-my-secondary mb-2">
+                    <div class = "card-header">
+                        <a class = "fw-bold" href = "{{ route( "summaries_one", [ "id" => $summary->id ] ) }}">
+                            #{{ $summary->id }}
+                            {{ $summary->name }}
+                        </a>
+                    </div>
+                    <div class = "card-body">
+                        <div class = "d-flex justify-content-between">
+                            <div>{{ $summary->email }}</div>
+                            <div>{{ $summary->position->name }}</div>
+                        </div>
+                        <div class = "d-flex justify-content-between">
+                            <div>{{ $summary->date }}</div>
+                            <div>{{ $summary->level->name ?? "N/A" }}</div>
+                        </div>
+                        <div class = "d-flex align-items-center mt-2">
+                            <select
+                                id = "summaryStatus{{ $summary->id }}"
+                                class = "form-select"
+                                onchange = "changeStatus2( {{ $summary->id }} )"
+                            >
+                                @foreach( $statuses as $status )
+                                    <option
+                                        value = "{{ $status->id }}"
+                                        @if( $summary->status->id === $status->id ) selected @endif
+                                    >
+                                        {{ $status->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <div
+                                id = "summaryStatusColor{{ $summary->id }}"
+                                class = "ms-2"
+                                style = "
+                                    width: 27px;
+                                    border-radius: 50%;
+                                    background-color: {{ $summary->status->color }};
+                                    color: rgba( 0, 0, 0, 0 );
+                                "
+                            >1</div>
+                        </div>
+                    </div>
+                </div>
             @endforeach
-            </tbody>
-        </table>
+        @else
+            <table class = "table">
+                <thead>
+                <tr>
+                    {{ $headerColumn( "ID", "id" ) }}
+                    {{ $headerColumn( "Имя", "name" ) }}
+                    {{ $headerColumn( "E-Mail", "email" ) }}
+                    {{ $headerColumn( "Позиция", "position_id" ) }}
+                    {{ $headerColumn( "Уровень", "level_id" ) }}
+                    {{ $headerColumn( "Дата", "date" ) }}
+                    {{ $headerColumn( "Решение", "status_id" ) }}
+                </tr>
+                </thead>
+                <tbody>
+                @foreach( $summaries as $summary )
+                    @php( $style = $summary->status->color ? "background-color: {$summary->status->color}" : "" )
+
+                    <tr id = "summary{{ $summary->id }}">
+                        <td style = "{{ $style }}">{{ $summary->id }}</td>
+                        <td style = "{{ $style }}">
+                            <a href = "{{ route( "summaries_one", [ "id" => $summary->id ] ) }}">{{ $summary->name }}</a>
+                        </td>
+                        <td style = "{{ $style }}">{{ $summary->email }}</td>
+                        <td style = "{{ $style }}">{{ $summary->position->name }}</td>
+                        <td style = "{{ $style }}">{{ $summary->level->name ?? "N/A" }}</td>
+                        <td style = "{{ $style }}">{{ $summary->date }}</td>
+                        <td style = "{{ $style }}">
+                            <select
+                                id = "summaryStatus{{ $summary->id }}"
+                                class = "form-select"
+                                onchange = "changeStatus( {{ $summary->id }} )"
+                            >
+                                @foreach( $statuses as $status )
+                                    <option
+                                        value = "{{ $status->id }}"
+                                        @if( $summary->status->id === $status->id ) selected @endif
+                                    >
+                                        {{ $status->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        @endif
+
+        <button class = "d-lg-none btn bg-primary text-white filters-show" onclick = "filters( 'show' )">
+            <i class = "fas fa-filter"></i>
+        </button>
     </div>
 @endsection
