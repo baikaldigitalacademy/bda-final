@@ -1,3 +1,13 @@
+function filters( action ){
+    const classList = document.getElementById( "filters" ).classList;
+
+    if( action === "show" ){
+        classList.remove( "d-none" );
+    } else {
+        classList.add( "d-none" );
+    }
+}
+
 function clearOneFilter( name, value = "" ){
     document.getElementsByName( name )[0].value = value;
 }

@@ -1,7 +1,4 @@
-@extends( "layouts.admin", [
-  "title" => $directoryName,
-  "icons" => true
-] )
+@extends( "layouts.admin", [ "title" => $directoryName ] )
 
 @push( "scripts" )
     <script>

@@ -1,7 +1,4 @@
-@extends( "layouts.app", [
-  "icons" => true,
-  "title" => $data->name
-] )
+@extends( "layouts.app", [ "title" => $data->name ] )
 
 @push( "scripts" )
     <script>
@@ -13,8 +10,8 @@
 @endpush
 
 @section("content")
-    <div class = "container">
-        <div class = "mt-3">
+    <div class = "container-lg">
+        <div class = "d-flex justify-content-between d-lg-block mt-3">
             <a
                 href = "{{ route( "summaries_edit", [ "id" => $data->id ] ) }}"
                 class = "btn btn-primary"
@@ -35,7 +32,7 @@
             </button>
         </div>
         <div class = "row text-black mt-3">
-            <div class = "col-4">
+            <div class = "col-lg-4">
                 <div class="card bg-light mb-3">
                     <div class="card-header">Полное имя</div>
                     <div class="card-body">
@@ -43,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class = "col-4">
+            <div class = "col-lg-4">
                 <div class="card bg-light mb-3">
                     <div class="card-header">Дата собеседования</div>
                     <div class="card-body">
@@ -51,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <div class = "col-4">
+            <div class = "col-lg-4">
                 <div class="card bg-light mb-3">
                     <div class="card-header">E-Mail</div>
                     <div class="card-body">
@@ -61,7 +58,7 @@
             </div>
         </div>
         <div class = "row text-black">
-            <div class = "col-3">
+            <div class = "col-lg-3">
                 <div class="card bg-light mb-3">
                     <div class="card-header">Статус</div>
                     <div class="card-body">
@@ -69,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            <div class = "col-3">
+            <div class = "col-lg-3">
                 <div class="card bg-light mb-3">
                     <div class="card-header">Уровень</div>
                     <div class="card-body">
@@ -77,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <div class = "col-3">
+            <div class = "col-lg-3">
                 <div class="card bg-light mb-3">
                     <div class="card-header">Позиция</div>
                     <div class="card-body">
@@ -85,7 +82,7 @@
                     </div>
                 </div>
             </div>
-            <div class = "col-3">
+            <div class = "col-lg-3">
                 <div class="card bg-light mb-3">
                     <div class="card-header">Кто завёл резюме</div>
                     <div class="card-body">
@@ -124,7 +121,7 @@
                 </div>
             </div>
         </div>
-        <div class = "mt-3">
+        <div class = "d-flex justify-content-between d-lg-block mt-3">
             <a
                 href = "{{ route( "summaries_edit", [ "id" => $data->id ] ) }}"
                 class = "btn btn-primary"

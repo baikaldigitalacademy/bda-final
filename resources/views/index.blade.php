@@ -41,10 +41,11 @@
     };
 ?>
 
-@extends( "layouts.app", [
-  "icons" => true,
-  "title" => "Главная"
-] )
+@extends( "layouts.app", [ "title" => "Главная" ] )
+
+@push( "styles" )
+    <link rel = "stylesheet" type = "text/css" href = "{{ asset( "css/index.css" ) }}">
+@endpush
 
 @push( "scripts" )
     <script>
@@ -55,8 +56,20 @@
 @endpush
 
 @section( "content" )
-    <div class="d-flex flex-column flex-shrink-0 p-3 border-end" style="width: 280px">
-        <span class="fs-4">Фильтры</span>
+    <button class = "d-lg-none btn bg-primary text-white filters-show" onclick = "filters( 'show' )">
+        <i class = "fas fa-filter"></i>
+    </button>
+    <div
+        id = "filters"
+        class="d-none d-lg-flex flex-column flex-shrink-0 p-3 bg-dark border-end filters"
+        style="width: 280px"
+    >
+        <div class = "d-flex justify-content-between">
+            <span class="fs-4">Фильтры</span>
+            <button class = "btn border d-lg-none" onclick = "filters( 'hide' )">
+                <i class = "fas fa-times text-white"></i>
+            </button>
+        </div>
         <hr>
         <form id = "filtersForm">
             <label for = "name">Имя</label>

@@ -1,7 +1,4 @@
-@extends( "layouts.admin", [
-  "title" => "Статусы (решения)",
-  "icons" => true
-] )
+@extends( "layouts.admin", [ "title" => "Статусы (решения)" ] )
 
 @push( "scripts" )
     <script>

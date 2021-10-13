@@ -1,6 +1,4 @@
-@extends( "layouts.app", [
-  "title" => $title ?? "Администрирование"
-] )
+@extends( "layouts.app", [ "title" => $title ?? "Администрирование" ] )
 
 @section( "content" )
     <div class="d-flex flex-column flex-shrink-0 p-3 border-end" style="width: 280px">

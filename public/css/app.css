@@ -6,3 +6,21 @@
     cursor: pointer;
     opacity: .75;
 }
+
+.header-menu{
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 991;
+}
+
+.header-menu__close{
+    position: absolute;
+    left: 100%;
+    top: 10px;
+    transform: translateX( calc( -100% - 10px ) );
+}

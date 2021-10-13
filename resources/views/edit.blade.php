@@ -1,7 +1,4 @@
-@extends( "layouts.app", [
-  "icons" => true,
-  "title" => $title
-] )
+@extends( "layouts.app", [ "title" => $title ] )
 
 @push( "styles" )
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -19,14 +16,14 @@
 @endpush
 
 @section("content")
-    <div class = "container mt-3">
+    <div class = "container-lg mt-3">
         <form id = "editForm" method="post" action="{{route('summaryUpdate', ['id'=>$data->id])}}">
             @csrf
             @if(!$isNew)
                 @method("put")
             @endif
 
-            <div class = "mb-2">
+            <div class = "d-flex justify-content-between d-lg-block mb-2">
                 <button type = "submit" class = "btn btn-success">Сохранить</button>
                 <a href = "." class = "btn btn-primary">Назад</a>
             </div>
@@ -117,7 +114,7 @@
                     {!! old('experience') ?? $data->experience !!}
                 </div>
             </div>
-            <div class = "mt-3">
+            <div class = "d-flex justify-content-between d-lg-block mt-3">
                 <button type = "submit" class = "btn btn-success">Сохранить</button>
                 <a href = "." class = "btn btn-primary">Назад</a>
             </div>
