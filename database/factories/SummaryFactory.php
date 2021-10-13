@@ -33,9 +33,9 @@ class SummaryFactory extends Factory
             'level_id' => $lvl_id,
             'date' => $this->faker->date(),
             'status_id' => mt_rand(1,4),
-            'skills' => $this->faker->text(2000),
-            'description' => $this->faker->text(8000),
-            'experience' => $this->faker->text(10000)
+            'skills' => $this->faker->text(1500),
+            'description' => $this->faker->text(7000),
+            'experience' => $this->faker->text(8000)
         ];
     }
 }
