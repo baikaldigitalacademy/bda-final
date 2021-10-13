@@ -53,9 +53,14 @@
             </div>
         </div>
         <div id = "headerMenu" class = "header-menu d-none d-lg-none p-3 bg-dark">
-            <button class = "btn border header-menu__close" onclick = "headerMenu( 'hide' )">
-                <i class = "fas fa-times text-white"></i>
-            </button>
+            <div class = "d-flex justify-content-between container">
+                <a href = "/" class = "text-warning text-decoration-none navbar-brand">
+                    BDA-Final
+                </a>
+                <button class = "btn border" onclick = "headerMenu( 'hide' )">
+                    <i class = "fas fa-times text-white"></i>
+                </button>
+            </div>
             <a href="{{ route( "dashboard" ) }}" class="nav-link px-2 text-white">Главная</a>
             <a href="{{ route( "createNewCV" ) }}" class="nav-link px-2 text-white">Добавить резюме</a>
 
