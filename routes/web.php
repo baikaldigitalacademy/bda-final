@@ -39,12 +39,12 @@ Route::middleware( "auth.roles:admin" )->group( function(){
     //Users
     Route::prefix("/users")->group(function(){
         Route::get("/", [UserController::class, "index"])->name("users_all");
-        Route::get("/create", [UserController::class, "create"])->name("create_user");
-        Route::get("/{user}", [UserController::class, "edit"])->name("users_one");
+        Route::get("/create", [UserController::class, "create"])->name("users_create");
+        Route::get("/{user}/edit", [UserController::class, "edit"])->name("users_edit");
 
-        Route::post( "/", [ UserController::class, "store" ] )->name( "user_store" );
-        Route::put( "/{user}", [ UserController::class, "update" ] )->name( "user_update" );
-        Route::delete( "/{user}", [ UserController::class, "delete" ] )->name( "user_delete" );
+        Route::post( "/", [ UserController::class, "store" ] )->name( "users_store" );
+        Route::put( "/{user}", [ UserController::class, "update" ] )->name( "users_update" );
+        Route::delete( "/{user}", [ UserController::class, "destroy" ] )->name( "users_destroy" );
     });
 
     // Роли

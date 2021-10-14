@@ -51,7 +51,7 @@
             </li>
             <li>
                 <a
-                    href = "{{ route( "create_user" ) }}"
+                    href = "{{ route( "users_create" ) }}"
                     class = "nav-link text-white"
                 >
                     Создать нового пользователя
@@ -60,7 +60,7 @@
         </ul>
     </div>
 
-    <div class = "p-4" style = "width: 100%; overflow: auto">
+    <div style = "width: 100%; overflow: auto">
         @yield( "content-admin" )
     </div>
 @endsection

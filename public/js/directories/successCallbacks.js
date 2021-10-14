@@ -7,9 +7,9 @@ function createNameRow( { id, name } ){
     div.innerHTML =
         `<input data-edit${id} = "name" type = "text" value = "${name}" class = "form-control me-2">
         <button class = "btn btn-success me-2" onclick = "update( ${id} )">
-          <i class = "fas fa-check me-2"></i>
+          <i class = "fas fa-check"></i>
         </button>
-        <button class = "btn btn-danger me-2" onclick = "destroy( ${id} )">
+        <button class = "btn btn-danger" onclick = "destroy( ${id} )">
           <i class = "fas fa-trash"></i>
         </button>`;
 

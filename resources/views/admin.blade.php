@@ -1,5 +1,7 @@
 @extends( "layouts.admin" )
 
 @section( "content-admin" )
-    <h3>Hello there</h3>
+    <div class = "p-4">
+        <h3>Hello there</h3>
+    </div>
 @endsection

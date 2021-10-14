@@ -25,7 +25,7 @@ class CreateSummariesTable extends Migration
                 ->foreignId( "owner_id" )
                 ->constrained( "users" )
                 ->onUpdate( "cascade" )
-                ->onDelete( "cascade" );
+                ->onDelete( "restrict" );
             $table
                 ->foreignId('position_id')
                 ->constrained()

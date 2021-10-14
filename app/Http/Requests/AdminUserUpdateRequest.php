@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminUserRequest extends FormRequest
+class AdminUserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,21 +21,19 @@ class AdminUserRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
-        $uniqueName = "unique:users,name";
         $uniqueLogin = "unique:users,login";
 
         if( $this->user ){
-            $uniqueName .= ",{$this->user->id}";
             $uniqueLogin .= ",{$this->user->id}";
         }
 
         return [
-            "name" => "$uniqueName|string|min:1",
+            "name" => "string|min:1",
             "login" => "$uniqueLogin|string|min:1",
-            "role_id" => "exists:roles,id",
-            "password" => "nullable|string|min:3"
+            "role_id" => "int|min:1|exists:roles,id",
+            "password" => "string|min:8"
         ];
     }
 }
