@@ -159,6 +159,6 @@ class SummaryController extends Controller {
         $pdf = \PDF::loadView( "pdf", [ "summary" => $summary[ "data" ] ] );
         $fileName = "summary.pdf";
 
-        return $pdf->download( $fileName );
+        return $pdf->inline( $fileName );
     }
 }

@@ -21,6 +21,7 @@
             <a
                 href = "{{ route( "pdf", [ "id" => $data->id ] ) }}"
                 class = "btn btn-primary"
+                target = "_blank"
             >
                 Скачать PDF
             </a>
@@ -131,6 +132,7 @@
             <a
                 href = "{{ route( "pdf", [ "id" => $data->id ] ) }}"
                 class = "btn btn-primary"
+                target = "_blank"
             >
                 Скачать PDF
             </a>

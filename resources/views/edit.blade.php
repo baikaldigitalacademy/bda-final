@@ -29,7 +29,7 @@
             </div>
             <label for = "name">Полное имя</label>
             <input
-                type = "name"
+                type = "text"
                 class = "form-control"
                 id = "name"
                 name = "name"
