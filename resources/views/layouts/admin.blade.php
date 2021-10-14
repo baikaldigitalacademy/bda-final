@@ -4,7 +4,7 @@
     <div class="d-flex flex-column flex-shrink-0 p-3 border-end" style="width: 280px">
         <span class="fs-4">Справочники</span>
         <hr>
-        <ul class = "nav nav-pills flex-column mb-auto">
+        <ul class = "nav nav-pills flex-column mb-4">
             <li>
                 <a
                     href = "{{ route( "roles_all" ) }}"
@@ -35,6 +35,26 @@
                     class = "nav-link text-white"
                 >
                     Возможные статусы (решения) для резюме
+                </a>
+            </li>
+        </ul>
+        <span class="fs-4">Пользователи</span>
+        <hr>
+        <ul class = "nav nav-pills flex-column mb-auto">
+            <li>
+                <a
+                    href = "{{ route( "users_all" ) }}"
+                    class = "nav-link text-white"
+                >
+                    Список пользователей
+                </a>
+            </li>
+            <li>
+                <a
+                    href = "{{ route( "create_user" ) }}"
+                    class = "nav-link text-white"
+                >
+                    Создать нового пользователя
                 </a>
             </li>
         </ul>
