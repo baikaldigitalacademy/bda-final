@@ -6,16 +6,16 @@
     <meta charset = "utf8">
 
     <style>
-        {{--@font-face {--}}
-        {{--    font-family: "Arial";--}}
-        {{--    src: url( {{ asset( "fonts/ArialMT.eot" ) }} );--}}
-        {{--    src: local( "Arial" ), local( "ArialMT" ),--}}
-        {{--    url( {{ asset( "fonts/ArialMT.eot?#iefix" ) }} ) format( "embedded-opentype" ),--}}
-        {{--    url( {{ asset( "fonts/ArialMT.woff" ) }} ) format( "woff" ),--}}
-        {{--    url( {{ asset( "fonts/ArialMT.ttf" ) }} ) format( "truetype" );--}}
-        {{--    font-weight: normal;--}}
-        {{--    font-style: normal;--}}
-        {{--}--}}
+        @font-face {
+            font-family: "Arial";
+            src: url( {{ asset( "fonts/ArialMT.eot" ) }} );
+            src: local( "Arial" ), local( "ArialMT" ),
+            url( {{ asset( "fonts/ArialMT.eot?#iefix" ) }} ) format( "embedded-opentype" ),
+            url( {{ asset( "fonts/ArialMT.woff" ) }} ) format( "woff" ),
+            url( {{ asset( "fonts/ArialMT.ttf" ) }} ) format( "truetype" );
+            font-weight: normal;
+            font-style: normal;
+        }
 
         body{
             font-family: Arial;
