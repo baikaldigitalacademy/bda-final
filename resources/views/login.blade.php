@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title>Final CMS | Вход</title>
+    <title>BDA Team | Вход</title>
     <meta charset = "utf8">
     <meta name = "viewport" content = "width=device-width, initial-scale=1">
 
@@ -15,7 +15,7 @@
     <main class="form-signin">
         <form method="post" action="{{route("signIn")}}">
             @csrf
-            <h1 class="h3 mb-3 fw-normal">BDA final</h1>
+            <h1 class="h3 mb-3 fw-normal">BDA Team</h1>
             @if( $errors->any() )
                 <div class = "alert alert-danger">
                     @foreach( $errors->all() as $error )
@@ -24,12 +24,12 @@
                 </div>
             @endif
             <div class="form-floating text-dark">
-                <input name="login" type="text" class="form-control" id="floatingInput" placeholder="Login" value="{{old("login")}}">
-                <label for="floatingInput">Login</label>
+                <input name="login" type="text" class="form-control" id="floatingInput" placeholder="Логин" value="{{old("login")}}">
+                <label for="floatingInput">Логин</label>
             </div>
             <div class="form-floating text-dark mt-2">
-                <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
+                <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Пароль">
+                <label for="floatingPassword">Пароль</label>
             </div>
 
             <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>

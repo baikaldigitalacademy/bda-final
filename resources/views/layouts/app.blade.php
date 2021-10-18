@@ -2,7 +2,7 @@
 
 <html lang = "ru">
 <head>
-    <title>Final CMS | {{ $title }}</title>
+    <title>BDA Team | {{ $title }}</title>
     <meta charset = "utf8" />
     <meta id = "csrf-token" content = "{{ csrf_token() }}" />
     <meta name = "viewport" content = "width=device-width, initial-scale=1">
@@ -20,7 +20,7 @@
         <div class = "p-3 border-bottom">
             <div class = "d-flex justify-content-between container-lg">
                 <a href = "/" class = "text-warning text-decoration-none navbar-brand">
-                    BDA-Final
+                    BDA Team
                 </a>
                 <div class = "d-none d-lg-flex w-100">
                     <a href="{{ route( "dashboard" ) }}" class="nav-link px-2 text-white">Главная</a>

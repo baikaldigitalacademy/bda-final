@@ -49,7 +49,7 @@ class PositionController extends Controller
             $position->delete();
         }catch (QueryException $exception){
             return response(
-                "Cannot delete or update a parent row: a foreign key constraint fails.",
+                "Невозможно удалить зависимые данные.",
                 400);
         }
     }
