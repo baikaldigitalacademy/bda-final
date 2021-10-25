@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Requests\SummaryGetAllRequest;
 use App\Http\Requests\SummaryUpdateRequest;
+use App\Http\Requests\SummaryUpdateStatusRequest;
 use App\Models\Summary;
 use App\Repositories\SummaryRepository;
 use App\Repositories\PositionRepository;
@@ -66,14 +67,10 @@ class SummaryController extends Controller {
      * Remove the specified resource from storage.
      *
      * @param Summary $summary
-     *
-     * @return RedirectResponse
      */
-    public function destroy( Summary $summary ): RedirectResponse
+    public function destroy( Summary $summary )
     {
         $summary->delete();
-
-        return redirect( route( "dashboard" ) );
     }
 
     public function edit(Request $request,
@@ -134,8 +131,25 @@ class SummaryController extends Controller {
         return redirect( route( "summaries_one", [ "id" => $id ] ) );
     }
 
+    // TODO with repository
+    /**
+     * Update summary status.
+     *
+     * @param SummaryUpdateStatusRequest $request
+     * @param Summary $summary
+     *
+     * @return array
+     */
+    public function updateStatus( SummaryUpdateStatusRequest $request, Summary $summary ): array
+    {
+        $summary->update( $request->all() );
+
+        return [ "payload" => $summary->status->color ];
+    }
+
     public function store(SummaryUpdateRequest $request, SummaryRepository $summaryRepository){
-        $id = $summaryRepository->store($request->all());
+        $ownerId = \Auth::user()->id;
+        $id = $summaryRepository->store( array_merge( $request->all(), [ "owner_id" => $ownerId ] ) );
 
         return redirect( route( "summaries_one", [ "id" => $id ] ) );
     }
@@ -145,6 +159,6 @@ class SummaryController extends Controller {
         $pdf = \PDF::loadView( "pdf", [ "summary" => $summary[ "data" ] ] );
         $fileName = "summary.pdf";
 
-        return $pdf->download( $fileName );
+        return $pdf->inline( $fileName );
     }
 }

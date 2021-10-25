@@ -26,15 +26,16 @@ class SummaryFactory extends Factory
             $lvl_id = mt_rand(1, 4);
         }
         return [
+            "owner_id" => 1,
             'name' => $this->faker->firstName() . " " . $this->faker->lastName() . " " . $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail(),
             'position_id' => mt_rand(1,2),
             'level_id' => $lvl_id,
             'date' => $this->faker->date(),
             'status_id' => mt_rand(1,4),
-            'skills' => $this->faker->text(2000),
-            'description' => $this->faker->text(8000),
-            'experience' => $this->faker->text(10000)
+            'skills' => $this->faker->text(1500),
+            'description' => $this->faker->text(7000),
+            'experience' => $this->faker->text(8000)
         ];
     }
 }

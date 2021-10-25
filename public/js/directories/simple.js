@@ -1,26 +1,32 @@
 function clearErrors( node ){
-    ( node || document.getElementById( "errorsDiv" ) ).innerHTML = "";
+    const errorsDiv = node || document.getElementById( "errorsDiv" );
+
+    errorsDiv.classList.add( "d-none" );
+    errorsDiv.innerHTML = "";
 }
 
 function showErrorsByFields( errorBug ){
     const errorsDiv = document.getElementById( "errorsDiv" );
 
     for( const [ field, errors ] of Object.entries( errorBug ) ){
-        const fieldset = document.createElement( "fieldset" );
-        const legend = document.createElement( "legend" );
-
-        legend.innerHTML = field;
-        fieldset.appendChild( legend );
+        // const fieldset = document.createElement( "fieldset" );
+        // const legend = document.createElement( "legend" );
+        //
+        // legend.innerHTML = field;
+        // fieldset.appendChild( legend );
 
         for( const error of errors ){
             const div = document.createElement( "div" );
 
             div.innerHTML = error;
-            fieldset.appendChild( div );
+            // fieldset.appendChild( div );
+            errorsDiv.appendChild( div );
         }
 
-        errorsDiv.appendChild( fieldset );
+        // errorsDiv.appendChild( fieldset );
     }
+
+    errorsDiv.classList.remove( "d-none" );
 }
 
 function showUnnamedErrors( errors ){
@@ -32,6 +38,8 @@ function showUnnamedErrors( errors ){
         div.innerHTML = error;
         errorsDiv.appendChild( div );
     }
+
+    errorsDiv.classList.remove( "d-none" );
 }
 
 async function create( successCallback ){

@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Summary;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,6 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
+        ( new RoleSeeder() )->run();
+        ( new UserSeeder() )->run();
         (new PositionSeeder())->run();
         (new SummaryStatusSeeder())->run();
         (new LevelSeeder())->run();

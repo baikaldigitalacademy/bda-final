@@ -11,6 +11,7 @@ class Summary extends Model
     use HasFactory;
 
     protected $fillable = [
+        "owner_id",
         "name",
         "email",
         "date",
@@ -41,5 +42,12 @@ class Summary extends Model
      */
     public function status(): BelongsTo{
         return $this->belongsTo( SummaryStatus::class );
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function owner(): BelongsTo{
+        return $this->belongsTo( User::class, "owner_id" );
     }
 }

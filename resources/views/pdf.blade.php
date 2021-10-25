@@ -6,6 +6,17 @@
     <meta charset = "utf8">
 
     <style>
+        @font-face {
+            font-family: "Arial";
+            src: url( {{ asset( "fonts/ArialMT.eot" ) }} );
+            src: local( "Arial" ), local( "ArialMT" ),
+            url( {{ asset( "fonts/ArialMT.eot?#iefix" ) }} ) format( "embedded-opentype" ),
+            url( {{ asset( "fonts/ArialMT.woff" ) }} ) format( "woff" ),
+            url( {{ asset( "fonts/ArialMT.ttf" ) }} ) format( "truetype" );
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body{
             font-family: Arial;
             font-size: 12pt;
@@ -28,7 +39,7 @@
 
 <body>
 <span class = "head">{{ $summary->name }}</span> <br>
-<a href = "{{ $summary->email }}">{{ $summary->email }}</a> <br> <br> <br>
+<a href = "mailto:{{ $summary->email }}" target = "_blank">{{ $summary->email }}</a> <br> <br> <br>
 <span class = "subsection">Ключевые навыки:</span>
 <div class = "from-editor">{!! $summary->skills !!}</div> <br> <br>
 <span class = "subsection">Резюме:</span>
